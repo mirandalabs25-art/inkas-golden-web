@@ -403,7 +403,7 @@ function paginaTourHtml(t) {
   const relacionados = toursDe(t.cat).filter((x) => x !== t).slice(0, 3);
   const duracionTexto = /\[/.test(t.duracion) ? '' : ` (${t.duracion})`;
   const msg = `Hola, quiero reservar el tour ${t.nombre}${duracionTexto}`;
-  const delPrograma = t.fuente === 'programa' ? ' <span class="etiqueta etiqueta--ok">Del programa del albergue</span>' : '';
+  const delPrograma = t.fuente === 'programa' ? ' <span class="etiqueta etiqueta--ok">Del programa del operador</span>' : '';
 
   const galeria = t.foto
     ? `<div class="galeria">

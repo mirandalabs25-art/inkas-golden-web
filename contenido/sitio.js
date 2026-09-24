@@ -375,22 +375,47 @@ const TOURS = [
   },
   {
     slug: 'manu-4-dias', cat: 'selva', destacado: true,
-    nombre: 'Manu 4 días / 3 noches', duracion: '4 días / 3 noches', dificultad: 'Moderada', altura: 'de 3,500 m a selva baja',
+    // Programa: «CUT 02 – Manu Basic Tour, 4 days and 3 nights bus/bus» (.docx en
+    // inglés, recursos/cut-02-manu-basico-4d3n-bus-bus.docx). Precio: Florencio.
+    nombre: 'Manu 4 días / 3 noches', duracion: '4 días / 3 noches', dificultad: 'Moderada', altura: 'de 3,600 m a selva baja',
     foto: 'manu-gallito', galeria: ['manu-gallito-2', 'tambopata-mono'],
     precio: { monto: 270, moneda: 'USD' },
-    resumen: 'De Cusco a la Amazonía por tierra: el bosque nublado, con orquídeas y el gallito de las rocas, y los días en la selva del Manu. Todo incluido.',
-    lugares: ['Cusco', 'Paucartambo', 'Bosque nublado', 'Manu'],
-    fuente: 'florencio',
+    resumen: 'De Cusco a la Amazonía por tierra: el bosque nublado del gallito de las rocas, el río Alto Madre de Dios, el lago Machuhuasi en balsa y una collpa de loros.',
+    lugares: ['Paucartambo', 'Ninamarca', 'Bosque nublado', 'Pilcopata', 'Río Alto Madre de Dios', 'Lago Machuhuasi', 'Collpa de loros', 'Laguna Maravilla'],
+    fuente: 'programa',
+    alojamiento: 'Noche 1: Manu Green Lodge, en Pilcopata, con duchas y baños. Noches 2 y 3: Paititi Lodge, con baño privado y ducha.',
     itinerario: [
-      { titulo: 'Día 1 · Cusco – bosque nublado – Paucartambo', pasos: [
-        'Recojo en tu hotel de Cusco [hora por confirmar].',
-        'Paso por Paucartambo y bajada al bosque nublado, lleno de orquídeas, heliconias y helechos primitivos.',
-        'Con suerte, el ritual de apareamiento del gallito de las rocas, y la posibilidad de ver águilas.',
-        'Noche en el albergue.',
+      { titulo: 'Día 1 · Cusco – Paucartambo – bosque nublado – Pilcopata', pasos: [
+        'Recojo en tu hotel de Cusco entre las 5:30 y las 6:00 a. m.',
+        'Subida a la zona alta de Paucartambo, con visita a las chullpas (torres funerarias) de Ninamarca.',
+        'Paso por Ajanaco, a 3,600 m, y bajada por el bosque nublado, lleno de orquídeas, heliconias y helechos primitivos.',
+        'Parada para intentar ver el ritual de apareamiento del gallito de las rocas. También se pueden ver el pájaro paraguas amazónico, trogones, quetzales u oropéndolas; en esta zona vive el oso de anteojos.',
+        'Por la tarde, llegada a Pilcopata y noche en el Manu Green Lodge.',
       ] },
-      { titulo: 'Días 2 a 4', pasos: ['[Itinerario por confirmar: está en el documento «Manu básico 4 días y 3 noches»]'] },
+      { titulo: 'Día 2 · Atalaya – río Alto Madre de Dios – lago Machuhuasi', pasos: [
+        'Desayuno y caminata por la selva: una plantación de coca, aves, plantas y monos.',
+        'En el puerto de Atalaya, bote a motor por el río Alto Madre de Dios, con una parada para caminar por un sendero y bañarse en aguas termales.',
+        'Llegada al albergue y almuerzo.',
+        'Por la tarde, paseo en balsa por el lago Machuhuasi: con suerte, shanshos, monos, caimanes enanos, capibaras y tapires.',
+        'Después de la cena, caminata nocturna. Noche en el Paititi Lodge.',
+      ] },
+      { titulo: 'Día 3 · Collpa de loros y laguna Maravilla', pasos: [
+        'Muy temprano, unos 25 minutos en bote hasta la collpa: una pared de arcilla con minerales donde se reúnen muchas especies de loros.',
+        'Desayuno.',
+        'Caminata por el bosque hasta la laguna privada Maravilla: desde una plataforma se ven aves, monos o caimanes enanos.',
+        'Almuerzo y descanso en el albergue.',
+        'Por la tarde y por la noche, caminatas para ver insectos, ranas y arañas. Noche en el Paititi Lodge.',
+      ] },
+      { titulo: 'Día 4 · Regreso a Cusco', pasos: [
+        'Desayuno y regreso en bote a Atalaya.',
+        'Bus de regreso a Cusco, pasando otra vez por el bosque nublado.',
+        'Llegada a Cusco alrededor de las 7:00 p. m.',
+      ] },
     ],
-    incluye: ['Todo incluido [detalle por confirmar]'], noIncluye: null,
+    notaItinerario: 'El programa marca el día 3 como opcional: existe una versión de 3 días sin la collpa ni la laguna Maravilla. [Precio de la versión de 3 días: por confirmar]',
+    incluye: ['Transporte en bus y en bote', 'Guía profesional con telescopio y binoculares', 'Personal de apoyo', 'Equipo de seguridad', 'Cocinero profesional', 'Desayuno, almuerzo, cena y snacks', 'Noches en albergues con baño compartido y privado', 'Botiquín de primeros auxilios', 'Agua mineral'],
+    noIncluye: ['Desayuno y agua del primer día', 'Bebidas alcohólicas, gaseosas y agua del primer día'],
+    llevar: ['Ropa abrigadora: los amaneceres junto al río son fríos', 'Ropa para la lluvia', 'Botella de agua', 'Binoculares', 'Protector solar', 'Linterna con pilas de repuesto', 'Sombrero', 'Camisa de manga larga y pantalón largo', 'Repelente de mosquitos (al menos 30 %)', 'Sandalias, ropa de baño y toalla', 'Artículos de aseo personal', 'Dinero extra'],
   },
 
   // ---- Puno ----
