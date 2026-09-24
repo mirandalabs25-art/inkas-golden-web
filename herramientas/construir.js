@@ -162,6 +162,7 @@ function pie() {
         <li><a href="informacion.html">Info útil para tu viaje</a></li>
         <li><a href="nosotros.html">Nosotros</a></li>
         <li><a href="contacto.html">Contacto</a></li>
+        <li><a href="reservas-y-pagos.html">Reservas y pagos</a></li>
         <li><a href="contacto.html#reclamaciones">Libro de reclamaciones</a></li>
       </ul>
     </div>
@@ -495,7 +496,7 @@ ${t.alojamiento ? `
           <label>Tu nombre<input type="text" name="nombre" autocomplete="name" placeholder="Opcional"></label>
           <button class="boton boton--oro" type="submit">${ICONO.wa} Reservar por WhatsApp</button>
         </form>
-        <p class="reserva__nota">Te confirmamos disponibilidad y precio por WhatsApp antes de cualquier pago.</p>
+        <p class="reserva__nota">Te confirmamos disponibilidad y precio por WhatsApp antes de cualquier pago. <a href="reservas-y-pagos.html">Cómo reservar y pagar</a></p>
       </div>
     </aside>
   </div>
@@ -602,6 +603,57 @@ ${bandaFinal('Conversemos sobre tu viaje.', 'Hola, quiero conocer más sobre la 
   });
 }
 
+// Condiciones de reserva: 3 de las 10 webs de Tambopata tienen su página
+// («Booking Policy and Conditions», «Términos y condiciones»). Solo se afirma
+// lo que es cierto de cómo funciona esta web; lo del negocio va por confirmar.
+function paginaReservas() {
+  const pasos = [
+    ['Escríbenos', 'Por WhatsApp o desde el botón «Reservar» de cada tour, con el tour, la fecha y cuántas personas viajan.'],
+    ['Te confirmamos', 'Revisamos la disponibilidad —en Machu Picchu y en los trenes los cupos son limitados— y te confirmamos el precio.'],
+    ['Adelanto', '[Monto o porcentaje del adelanto para confirmar la reserva, y cuándo se paga]'],
+    ['Saldo', '[Cuándo y cómo se paga el resto]'],
+  ];
+  const cuerpo = `<section class="pcabeza pcabeza--corta">
+  <div class="pcabeza__fondo"><img src="${img('lodge-botes')}" alt="" width="1600" height="1067"></div>
+  <div class="pcabeza__velo"></div>
+  <div class="pcabeza__dentro">
+    <nav class="migas" aria-label="Estás en"><a href="index.html">Inicio</a><span>/</span><span>Reservas y pagos</span></nav>
+    <h1 class="pcabeza__titulo">Reservas y pagos</h1>
+    <p class="pcabeza__bajada">Cómo reservar un tour, cómo pagarlo y qué pasa si necesitas cambiar la fecha.</p>
+  </div>
+</section>
+
+<section class="seccion">
+  ${cab(1, 'Cómo reservar')}
+  <ol class="razones" role="list">
+${pasos.map(([t, d], i) => `    <li class="razon"><span class="razon__num">${i + 1}</span><h3>${esc(t)}</h3><p>${conFaltas(d)}</p></li>`).join('\n')}
+  </ol>
+</section>
+
+<section class="seccion seccion--piedra">
+  <div class="info__temas">
+    <article class="tema" id="datos"><p class="cab__num">02</p><h2>Qué datos necesitamos</h2>
+      <p>Para Machu Picchu y los trenes: nombre completo, número de pasaporte o DNI y nacionalidad de cada viajero, porque las entradas y los pasajes van a nombre de cada persona.</p>
+      <p>Para los tours desde Cusco: el nombre de tu hotel, para el recojo.</p></article>
+    <article class="tema" id="pagos"><p class="cab__num">03</p><h2>Formas de pago</h2>
+      <!-- REVISAR: Yape, Plin, transferencia, efectivo, tarjeta, PayPal… -->
+      <p>${falta('Formas de pago que acepta la agencia')}</p></article>
+    <article class="tema" id="cancelaciones"><p class="cab__num">04</p><h2>Cambios y cancelaciones</h2>
+      <!-- REVISAR: plazos y devoluciones. Las entradas a Machu Picchu y los trenes suelen tener sus propias reglas. -->
+      <p>${falta('Política de cambios y cancelaciones')}</p></article>
+    <article class="tema" id="seguro"><p class="cab__num">05</p><h2>Seguro de viaje</h2>
+      <p>${falta('Si la agencia lo incluye, lo recomienda o lo exige')}</p></article>
+  </div>
+</section>
+
+${bandaFinal('¿Listo para reservar? Escríbenos.', 'Hola, quiero reservar un tour')}`;
+  PAGINAS['reservas-y-pagos.html'] = pagina({
+    titulo: `Reservas y pagos — ${MARCA.nombre}`,
+    descripcion: `Cómo reservar un tour con ${MARCA.nombre}: datos que necesitamos, formas de pago y cambios.`,
+    activa: 'reservas-y-pagos.html', cuerpo,
+  });
+}
+
 function paginaContacto() {
   const d = (v, t) => (v ? esc(v) : falta(t));
   const opciones = CATEGORIAS.map((c) => `<option>${esc(c.titulo)}</option>`).join('');
@@ -664,6 +716,7 @@ function construir() {
   paginaInformacion();
   paginaNosotros();
   paginaContacto();
+  paginaReservas();
 
   // Enlaces rotos: todo href interno tiene que existir (página o archivo).
   const rotos = [];
