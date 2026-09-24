@@ -25,8 +25,8 @@ const MARCA = {
 
 // Datos de contacto: todos por confirmar con Florencio.
 const CONTACTO = {
-  whatsapp: null,           // REVISAR: número con código de país, solo dígitos (ej. 51984000000)
-  whatsappVisible: null,    // REVISAR: cómo se muestra (ej. +51 984 000 000)
+  whatsapp: '51945897269',  // Dado por Rodrigo el 2026-09-23 (22:50)
+  whatsappVisible: '+51 945 897 269',
   correo: null,             // REVISAR
   direccion: null,          // REVISAR: oficina en Cusco
   horario: null,            // REVISAR
