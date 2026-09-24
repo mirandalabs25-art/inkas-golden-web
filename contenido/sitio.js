@@ -4,11 +4,16 @@
    Todo lo que dice la web sale de acá. `node herramientas/construir.js`
    arma las páginas. Las páginas generadas no se editan a mano.
 
-   Estructura copiada de las 10 primeras webs de «Machu Picchu» y las 10 de
+   Estructura: la de las 10 primeras webs de «Machu Picchu» y las 10 de
    «Tambopata» (análisis del 2026-09-23 en Obsidian/proyectos/web-papa-florencio.md).
-   El catálogo es el que se repite en esas 20 webs: **se reemplaza con los PDFs
-   de Inkas Golden**. Todo dato del negocio que falta va en null o entre
-   corchetes, y el constructor lo marca como REVISAR. Nunca se inventa.
+
+   Catálogo (desde el 2026-09-23, noche): el de Florencio, de dos fuentes.
+   - Sus mensajes de WhatsApp del sábado 19/09 (lista de tours y precios).
+   - Los programas de los albergues que reenvió: Collpas Tambopata Inn (2D/1N),
+     Lago Sandoval 3D/2N y Full Day Collpa de Guacamayos.
+   Originales en investigaciones/inkas-golden/recursos/.
+   Todo dato que falta va en null o entre [corchetes], y el constructor lo
+   marca como REVISAR. Nunca se inventa.
    ========================================================================== */
 
 const MARCA = {
@@ -34,7 +39,6 @@ const CONTACTO = {
   libroReclamaciones: null, // REVISAR: obligatorio en Perú para quien vende al público
 };
 
-// Idiomas: las webs de referencia van en inglés con ES y PT. Por ahora, español.
 const IDIOMAS = ['ES', 'EN'];
 
 // --- Categorías = menú principal ---------------------------------------------
@@ -42,271 +46,309 @@ const CATEGORIAS = [
   {
     clave: 'machu-picchu', archivo: 'machu-picchu.html', menu: 'Machu Picchu',
     titulo: 'Tours a Machu Picchu', foto: 'machu-picchu',
-    bajada: 'En tren, en carro o caminando: todas las formas de llegar a la ciudadela inca desde Cusco.',
-    intro: 'Machu Picchu está a unos 2,430 m de altura, sobre el valle del río Urubamba. Se llega en tren hasta Aguas Calientes y de ahí en bus hasta la entrada, o por tierra hasta la Hidroeléctrica. Las entradas son por horario y por circuito, con cupos diarios limitados: conviene reservar con anticipación.',
+    bajada: 'El Valle Sagrado, una noche al pie de la montaña y la ciudadela inca con guía.',
+    intro: 'Machu Picchu está a unos 2,430 m de altura, sobre el valle del río Urubamba. Se llega en tren hasta Machu Picchu Pueblo (Aguas Calientes) y de ahí en bus hasta la entrada. Las entradas tienen cupos diarios: conviene reservar con anticipación.',
   },
   {
     clave: 'cusco', archivo: 'tours-en-cusco.html', menu: 'Tours en Cusco',
     titulo: 'Tours en Cusco', foto: 'valle-sagrado',
-    bajada: 'City Tour, Valle Sagrado, Maras y Moray, la Montaña de 7 Colores y la Laguna Humantay.',
-    intro: 'Cusco está a unos 3,400 m. Los tours de un día salen de la ciudad y vuelven en la tarde. Los de altura, como la Montaña de 7 Colores y Humantay, conviene dejarlos para después de dos o tres días de aclimatación.',
+    bajada: 'El City Tour, el Valle Sagrado y el Valle Sur: el Cusco inca y colonial.',
+    intro: 'Los tours culturales salen de Cusco y vuelven el mismo día. Son la mejor forma de aclimatarse a la altura antes de las caminatas.',
   },
   {
     clave: 'caminatas', archivo: 'caminatas.html', menu: 'Caminatas',
-    titulo: 'Caminatas a Machu Picchu', foto: 'salkantay',
-    bajada: 'El Camino Inca y las rutas alternativas, para llegar a Machu Picchu a pie.',
-    intro: 'El Camino Inca necesita permiso oficial, con cupos limitados que se agotan meses antes, y cierra en febrero por mantenimiento. El Salkantay es la alternativa más conocida y no necesita ese permiso.',
+    titulo: 'Caminatas y montañas', foto: 'montana-colores',
+    bajada: 'La Montaña de 7 Colores, Palcoyo, Humantay, las Siete Lagunas, Waqrapukara y el Salkantay.',
+    intro: 'Son caminatas de altura: la mayoría supera los 4,000 m. Conviene hacerlas después de dos o tres días en Cusco, con ropa abrigadora y calzado con buena suela.',
   },
   {
-    clave: 'tambopata', archivo: 'tambopata.html', menu: 'Tambopata',
-    titulo: 'Tours a Tambopata', foto: 'tambopata-lago',
-    bajada: 'La selva amazónica desde Puerto Maldonado: lagos, collpas de guacamayos y noches en el bosque.',
-    intro: 'La Reserva Nacional Tambopata está en Madre de Dios, a alrededor de una hora de vuelo desde Cusco. Los tours salen de Puerto Maldonado y se mueven en bote por los ríos Madre de Dios y Tambopata.',
+    clave: 'selva', archivo: 'tambopata.html', menu: 'Tambopata y Manu',
+    titulo: 'Tambopata y Manu', foto: 'lodge-collpa',
+    bajada: 'La Amazonía peruana: collpas de guacamayos, el lago Sandoval, noches en albergue y el bosque nublado del Manu.',
+    intro: 'Tambopata está en Madre de Dios: se llega en avión o en bus hasta Puerto Maldonado, y de ahí en bote a los albergues. El Manu se recorre por tierra desde Cusco, bajando por el bosque nublado.',
   },
   {
-    clave: 'paquetes', archivo: 'paquetes.html', menu: 'Paquetes',
-    titulo: 'Paquetes turísticos', foto: 'machu-picchu-atardecer',
-    bajada: 'Varios días combinados, con los traslados resueltos: Cusco, Machu Picchu y la selva.',
-    intro: 'Un paquete junta varios tours en un solo viaje, con los traslados y el orden pensados para aclimatarse bien. Se arman a medida según los días que tengas.',
+    clave: 'puno', archivo: 'lago-titicaca.html', menu: 'Lago Titicaca',
+    titulo: 'Puno y el Lago Titicaca', foto: 'titicaca-uros',
+    bajada: 'El lago navegable más alto del mundo y las islas flotantes de los Uros.',
+    intro: 'Puno está a orillas del Lago Titicaca, a unos 3,800 m de altura, entre Perú y Bolivia.',
   },
 ];
 
 // --- Tours --------------------------------------------------------------------
-// precio: null = «Precio por confirmar» en pantalla (REVISAR con los PDFs).
-// itinerario, incluye y noIncluye: de referencia, iguales a los de las webs
-// líderes. Se marcan «por confirmar» hasta tener la ficha de Inkas Golden.
+// precio: { monto, moneda: 'PEN' | 'USD' | null } — null = por confirmar.
+// fuente: de dónde sale la ficha ('florencio' = sus mensajes; 'programa' =
+// programa del albergue; 'referencia' = lo que ofrecen las webs líderes,
+// marcado «por confirmar» en pantalla).
 const TOURS = [
-  // Machu Picchu
+  // ---- Machu Picchu ----
   {
-    slug: 'machu-picchu-full-day', cat: 'machu-picchu', destacado: true,
-    nombre: 'Machu Picchu Full Day', duracion: '1 día', dificultad: 'Fácil', altura: '2,430 m',
-    foto: 'machu-picchu', galeria: ['machu-picchu-huayna', 'machu-picchu-nubes'],
-    resumen: 'La ciudadela inca en un solo día desde Cusco: tren por el valle del Urubamba, bus de subida y visita guiada.',
-    lugares: ['Cusco', 'Ollantaytambo', 'Aguas Calientes', 'Machu Picchu'],
+    slug: 'machu-picchu-2-dias', cat: 'machu-picchu', destacado: true,
+    nombre: 'Machu Picchu 2 días / 1 noche', duracion: '2 días / 1 noche', dificultad: 'Fácil', altura: '2,430 m',
+    foto: 'machu-picchu', galeria: ['valle-sagrado', 'machu-picchu-nubes'],
+    precio: { monto: 310, moneda: 'USD' }, // REVISAR: el mensaje dice «310» sin moneda
+    resumen: 'El Valle Sagrado con el tour de conexión, tren a Machu Picchu Pueblo, una noche allí y la ciudadela con guía al día siguiente.',
+    lugares: ['Cusco', 'Valle Sagrado', 'Ollantaytambo', 'Machu Picchu Pueblo', 'Machu Picchu'],
+    fuente: 'florencio',
     itinerario: [
-      { titulo: 'Cusco – Machu Picchu – Cusco', pasos: [
-        'Recojo en tu hotel de Cusco y traslado a la estación de tren.',
-        'Tren por el valle del río Urubamba hasta Aguas Calientes.',
-        'Bus de subida hasta la entrada de Machu Picchu.',
-        'Visita guiada por el circuito que corresponde a tu entrada.',
-        'Tiempo libre en Aguas Calientes.',
-        'Tren de regreso y traslado a Cusco.',
-      ] },
+      { titulo: 'Día 1 · Valle Sagrado y tren a Machu Picchu', pasos: ['Tour de conexión por el Valle Sagrado.', 'Tren a Machu Picchu Pueblo.', 'Noche en Machu Picchu Pueblo.'] },
+      { titulo: 'Día 2 · Machu Picchu y regreso', pasos: ['Bus de subida a Machu Picchu.', 'Visita guiada.', 'Bus de bajada.', 'Tren de regreso a Ollantaytambo y bus a Cusco.'] },
     ],
+    incluye: ['Tour de conexión', 'Tour del Valle Sagrado', 'Tren de ida y retorno', 'Ingreso a Machu Picchu', 'Bus de subida y bajada', 'Guía', 'Bus de retorno Ollantaytambo – Cusco', '1 noche en Machu Picchu Pueblo'],
+    noIncluye: ['Boleto turístico'],
   },
-  {
-    slug: 'valle-sagrado-machu-picchu', cat: 'machu-picchu', destacado: true,
-    nombre: 'Valle Sagrado y Machu Picchu', duracion: '2 días / 1 noche', dificultad: 'Fácil', altura: 'hasta 3,000 m',
-    foto: 'valle-sagrado', galeria: ['machu-picchu', 'moray'],
-    resumen: 'El Valle Sagrado el primer día, noche en Aguas Calientes y Machu Picchu temprano al día siguiente.',
-    lugares: ['Pisac', 'Urubamba', 'Ollantaytambo', 'Aguas Calientes', 'Machu Picchu'],
-    itinerario: [
-      { titulo: 'Día 1 · Valle Sagrado', pasos: ['Recojo en Cusco.', 'Mercado y andenes de Pisac.', 'Almuerzo en Urubamba.', 'Fortaleza de Ollantaytambo.', 'Tren a Aguas Calientes y noche en hotel.'] },
-      { titulo: 'Día 2 · Machu Picchu', pasos: ['Bus temprano a Machu Picchu.', 'Visita guiada.', 'Tren de regreso y traslado a Cusco.'] },
-    ],
-  },
-  {
-    slug: 'machu-picchu-en-carro', cat: 'machu-picchu',
-    nombre: 'Machu Picchu en carro', duracion: '2 días / 1 noche', dificultad: 'Moderada', altura: '2,430 m',
-    foto: 'machu-picchu-nubes', galeria: ['machu-picchu', 'machu-picchu-huayna'],
-    resumen: 'La ruta por tierra: carro hasta la Hidroeléctrica y unas tres horas de caminata junto a la vía del tren hasta Aguas Calientes.',
-    lugares: ['Santa María', 'Santa Teresa', 'Hidroeléctrica', 'Aguas Calientes', 'Machu Picchu'],
-    itinerario: [
-      { titulo: 'Día 1 · Cusco – Hidroeléctrica – Aguas Calientes', pasos: ['Salida temprano de Cusco en carro.', 'Paso por el abra Málaga y Santa María.', 'Llegada a la Hidroeléctrica.', 'Caminata junto a la vía del tren hasta Aguas Calientes.', 'Noche en hotel.'] },
-      { titulo: 'Día 2 · Machu Picchu – Cusco', pasos: ['Subida a Machu Picchu.', 'Visita guiada.', 'Regreso a la Hidroeléctrica y en carro a Cusco.'] },
-    ],
-  },
-  {
-    slug: 'machu-picchu-huayna-picchu', cat: 'machu-picchu',
-    nombre: 'Machu Picchu y Huayna Picchu', duracion: '1 día', dificultad: 'Exigente', altura: '2,720 m',
-    foto: 'machu-picchu-huayna', galeria: ['machu-picchu-atardecer', 'machu-picchu-nubes'],
-    resumen: 'Machu Picchu más la subida a Huayna Picchu, la montaña de todas las fotos. Cupos muy limitados.',
-    lugares: ['Cusco', 'Aguas Calientes', 'Machu Picchu', 'Huayna Picchu'],
-    itinerario: [
-      { titulo: 'Cusco – Machu Picchu – Huayna Picchu – Cusco', pasos: ['Recojo y tren a Aguas Calientes.', 'Bus a Machu Picchu y visita guiada.', 'Subida a Huayna Picchu en el horario de tu entrada.', 'Tren de regreso a Cusco.'] },
-    ],
-  },
-  // Tours en Cusco
+
+  // ---- Tours en Cusco ----
   {
     slug: 'city-tour-cusco', cat: 'cusco', destacado: true,
     nombre: 'City Tour Cusco', duracion: 'Medio día', dificultad: 'Fácil', altura: '3,400 a 3,700 m',
     foto: 'cusco', galeria: ['valle-sagrado', 'machu-picchu-atardecer'],
-    resumen: 'El Cusco inca y colonial: Qorikancha, la Catedral y los sitios arqueológicos de las alturas de la ciudad.',
-    lugares: ['Qorikancha', 'Catedral', 'Sacsayhuamán', "Q'enqo", 'Puka Pukara', 'Tambomachay'],
+    precio: { monto: 40, moneda: 'PEN' },
+    resumen: 'El Cusco inca: el Qorikancha y los cuatro sitios arqueológicos de las alturas de la ciudad.',
+    lugares: ['Qorikancha', 'Sacsayhuamán', "Q'enqo", 'Puka Pukara', 'Tambomachay'],
+    fuente: 'florencio',
     itinerario: [
-      { titulo: 'Tarde en Cusco', pasos: ['Recojo en tu hotel o encuentro en la Plaza de Armas.', 'Qorikancha, el templo del Sol.', 'Catedral de Cusco.', "Sacsayhuamán, Q'enqo, Puka Pukara y Tambomachay.", 'Regreso a la Plaza de Armas.'] },
+      { titulo: 'City Tour', pasos: ['Qorikancha, el templo del Sol.', 'Sacsayhuamán.', "Q'enqo.", 'Puka Pukara.', 'Tambomachay.'] },
     ],
+    incluye: null, noIncluye: null,
   },
   {
-    slug: 'valle-sagrado', cat: 'cusco',
+    slug: 'valle-sagrado', cat: 'cusco', destacado: true,
     nombre: 'Valle Sagrado de los Incas', duracion: '1 día', dificultad: 'Fácil', altura: 'hasta 3,760 m',
     foto: 'valle-sagrado', galeria: ['moray', 'maras'],
-    resumen: 'Un día por el valle del Urubamba: Pisac, Urubamba, Ollantaytambo y Chinchero de regreso.',
-    lugares: ['Pisac', 'Urubamba', 'Ollantaytambo', 'Chinchero'],
-    itinerario: [
-      { titulo: 'Valle Sagrado', pasos: ['Recojo en Cusco.', 'Mirador de Taray y Pisac.', 'Almuerzo en Urubamba.', 'Ollantaytambo.', 'Chinchero y regreso a Cusco.'] },
-    ],
+    precio: { monto: 85, moneda: 'PEN' },
+    resumen: 'Todo el día por el valle del río Urubamba, con visita a los sitios arqueológicos.',
+    lugares: ['[Lugares por confirmar]'],
+    fuente: 'florencio',
+    itinerario: null,
+    incluye: ['Bus de ida y retorno', 'Visita a los sitios arqueológicos'], noIncluye: null,
   },
   {
-    slug: 'maras-moray', cat: 'cusco',
-    nombre: 'Maras y Moray', duracion: 'Medio día', dificultad: 'Fácil', altura: '3,500 m',
-    foto: 'moray', galeria: ['maras', 'valle-sagrado'],
-    resumen: 'Los andenes circulares de Moray y las salineras de Maras, miles de pozos de sal en la ladera.',
-    lugares: ['Moray', 'Salineras de Maras'],
-    itinerario: [
-      { titulo: 'Maras y Moray', pasos: ['Recojo en Cusco.', 'Andenes circulares de Moray.', 'Salineras de Maras.', 'Regreso a Cusco.'] },
-    ],
+    slug: 'valle-sur', cat: 'cusco',
+    nombre: 'Valle Sur', duracion: '[Duración por confirmar]', dificultad: 'Fácil', altura: 'hasta 3,300 m',
+    foto: null, galeria: [],
+    precio: { monto: 50, moneda: 'PEN' },
+    resumen: 'El valle al sur de Cusco, con sus sitios arqueológicos y pueblos coloniales.',
+    lugares: ['[Lugares por confirmar]'],
+    fuente: 'florencio',
+    itinerario: null,
+    incluye: ['Bus', 'Guía'], noIncluye: null,
   },
+
+  // ---- Caminatas y montañas ----
   {
-    slug: 'montana-7-colores', cat: 'cusco', destacado: true,
+    slug: 'montana-7-colores', cat: 'caminatas', destacado: true,
     nombre: 'Montaña de 7 Colores', duracion: '1 día', dificultad: 'Exigente', altura: 'más de 5,000 m',
-    foto: 'montana-colores', galeria: ['montana-colores-2', 'salkantay'],
-    resumen: 'Vinicunca, la montaña de franjas de colores. Caminata de altura con salida de madrugada.',
-    lugares: ['Cusipata', 'Vinicunca'],
-    itinerario: [
-      { titulo: 'Vinicunca', pasos: ['Recojo de madrugada en Cusco.', 'Desayuno en el camino.', 'Caminata de subida hasta el mirador.', 'Bajada y almuerzo.', 'Regreso a Cusco por la tarde.'] },
-    ],
+    foto: 'montana-colores', galeria: ['salkantay', 'siete-lagunas'],
+    precio: { monto: 75, moneda: 'PEN' }, // REVISAR: el mensaje dice «Tour montaña 75 todo incluido»
+    resumen: 'Vinicunca, la montaña de franjas de colores. Caminata de altura, con oxígeno y bastones incluidos.',
+    lugares: ['Vinicunca'],
+    fuente: 'florencio',
+    itinerario: null,
+    incluye: ['Bus de ida y retorno', 'Desayuno', 'Almuerzo', 'Guía', 'Oxígeno', 'Bastones'], noIncluye: null,
   },
   {
-    slug: 'laguna-humantay', cat: 'cusco',
+    slug: 'palcoyo', cat: 'caminatas',
+    nombre: 'Montaña de Palcoyo', duracion: '1 día', dificultad: 'Moderada', altura: 'más de 4,900 m',
+    foto: null, galeria: [],
+    precio: { monto: 95, moneda: 'PEN' },
+    resumen: 'La otra montaña de colores, con una caminata más corta que la de Vinicunca.',
+    lugares: ['Palcoyo'],
+    fuente: 'florencio',
+    itinerario: null, incluye: null, noIncluye: null,
+  },
+  {
+    slug: 'laguna-humantay', cat: 'caminatas', destacado: true,
     nombre: 'Laguna Humantay', duracion: '1 día', dificultad: 'Exigente', altura: '4,200 m',
-    foto: 'humantay', galeria: ['salkantay', 'montana-colores'],
-    resumen: 'Una laguna turquesa al pie del nevado Humantay, en la ruta del Salkantay. Subida de alrededor de dos horas.',
-    lugares: ['Mollepata', 'Soraypampa', 'Laguna Humantay'],
-    itinerario: [
-      { titulo: 'Humantay', pasos: ['Recojo de madrugada en Cusco.', 'Desayuno en Mollepata.', 'Caminata desde Soraypampa hasta la laguna.', 'Bajada y almuerzo.', 'Regreso a Cusco.'] },
-    ],
-  },
-  // Caminatas
-  {
-    slug: 'camino-inca-4-dias', cat: 'caminatas', destacado: true,
-    nombre: 'Camino Inca a Machu Picchu', duracion: '4 días / 3 noches', dificultad: 'Exigente', altura: 'paso a 4,215 m',
-    foto: 'machu-picchu-atardecer', galeria: ['machu-picchu', 'salkantay'],
-    resumen: 'El camino original de los incas hasta la Puerta del Sol. Permisos limitados: se reservan meses antes.',
-    lugares: ['Km 82', 'Llactapata', 'Abra Warmiwañusca', 'Wiñay Wayna', 'Puerta del Sol', 'Machu Picchu'],
-    itinerario: [
-      { titulo: 'Día 1', pasos: ['Traslado al km 82 e inicio de la caminata.', 'Llactapata.', 'Campamento.'] },
-      { titulo: 'Día 2', pasos: ['Subida al abra Warmiwañusca, el punto más alto.', 'Campamento.'] },
-      { titulo: 'Día 3', pasos: ['Sitios arqueológicos del camino.', 'Wiñay Wayna.', 'Campamento.'] },
-      { titulo: 'Día 4', pasos: ['Puerta del Sol al amanecer.', 'Visita guiada de Machu Picchu.', 'Tren de regreso a Cusco.'] },
-    ],
+    foto: 'humantay', galeria: ['salkantay', 'siete-lagunas-2'],
+    precio: null,
+    resumen: 'Una laguna turquesa al pie del nevado Humantay. Con oxígeno y bastones incluidos.',
+    lugares: ['Laguna Humantay'],
+    fuente: 'florencio',
+    itinerario: null,
+    incluye: ['Bus de ida y retorno', 'Desayuno', 'Almuerzo', 'Guía', 'Oxígeno', 'Bastones'], noIncluye: null,
   },
   {
-    slug: 'camino-inca-corto', cat: 'caminatas',
-    nombre: 'Camino Inca corto', duracion: '2 días / 1 noche', dificultad: 'Moderada', altura: '2,720 m',
-    foto: 'machu-picchu-huayna', galeria: ['machu-picchu-atardecer', 'machu-picchu'],
-    resumen: 'El último tramo del Camino Inca, por Wiñay Wayna hasta la Puerta del Sol, y Machu Picchu al día siguiente.',
-    lugares: ['Km 104', 'Wiñay Wayna', 'Puerta del Sol', 'Aguas Calientes', 'Machu Picchu'],
-    itinerario: [
-      { titulo: 'Día 1', pasos: ['Tren hasta el km 104.', 'Caminata a Wiñay Wayna y la Puerta del Sol.', 'Bajada a Aguas Calientes y noche en hotel.'] },
-      { titulo: 'Día 2', pasos: ['Visita guiada de Machu Picchu.', 'Tren de regreso a Cusco.'] },
-    ],
+    slug: 'siete-lagunas', cat: 'caminatas',
+    nombre: 'Siete Lagunas de Ausangate', duracion: '1 día', dificultad: 'Moderada', altura: 'más de 4,500 m',
+    foto: 'siete-lagunas', galeria: ['siete-lagunas-2', 'humantay'],
+    precio: { monto: 90, moneda: 'PEN' },
+    resumen: 'Un circuito entre lagunas de colores al pie del nevado Ausangate. Todo incluido.',
+    lugares: ['Ausangate', 'Siete Lagunas'],
+    fuente: 'florencio',
+    itinerario: null,
+    incluye: ['Todo incluido [detalle por confirmar]'], noIncluye: null,
   },
   {
-    slug: 'salkantay-5-dias', cat: 'caminatas',
-    nombre: 'Salkantay a Machu Picchu', duracion: '5 días / 4 noches', dificultad: 'Exigente', altura: 'paso a unos 4,600 m',
+    slug: 'waqrapukara', cat: 'caminatas',
+    nombre: 'Waqrapukara', duracion: '1 día', dificultad: 'Moderada', altura: 'unos 4,100 m',
+    foto: null, galeria: [],
+    precio: { monto: 100, moneda: 'PEN' },
+    resumen: 'La fortaleza inca con forma de cuernos, sobre el cañón del río Apurímac.',
+    lugares: ['Waqrapukara'],
+    fuente: 'florencio',
+    itinerario: null, incluye: null, noIncluye: null,
+  },
+  {
+    slug: 'salkantay', cat: 'caminatas', destacado: true,
+    nombre: 'Caminata al Salkantay', duracion: '[Días por confirmar]', dificultad: 'Exigente', altura: 'paso a unos 4,600 m',
     foto: 'salkantay', galeria: ['humantay', 'machu-picchu'],
-    resumen: 'Del nevado Salkantay a la selva alta, con la Laguna Humantay en el camino. No necesita permiso del Camino Inca.',
-    lugares: ['Mollepata', 'Laguna Humantay', 'Abra Salkantay', 'Santa Teresa', 'Aguas Calientes', 'Machu Picchu'],
-    itinerario: [
-      { titulo: 'Día 1', pasos: ['Traslado a Mollepata y Soraypampa.', 'Laguna Humantay.', 'Campamento.'] },
-      { titulo: 'Día 2', pasos: ['Abra Salkantay, el punto más alto.', 'Bajada hacia la selva alta.'] },
-      { titulo: 'Día 3', pasos: ['Caminata por el valle hasta Santa Teresa.'] },
-      { titulo: 'Día 4', pasos: ['Hidroeléctrica y caminata a Aguas Calientes.'] },
-      { titulo: 'Día 5', pasos: ['Visita guiada de Machu Picchu.', 'Regreso a Cusco.'] },
-    ],
+    precio: { monto: 380, moneda: 'USD' },
+    resumen: 'La caminata al pie del nevado Salkantay, con todo incluido.',
+    lugares: ['Salkantay'],
+    fuente: 'florencio',
+    itinerario: null,
+    incluye: ['Todo incluido [detalle por confirmar]'], noIncluye: null,
   },
-  // Tambopata
+
+  // ---- Tambopata y Manu ----
   {
-    slug: 'tambopata-3-dias', cat: 'tambopata', destacado: true,
-    nombre: 'Tambopata', duracion: '3 días / 2 noches', dificultad: 'Fácil', altura: 'selva baja',
-    foto: 'tambopata-lago', galeria: ['tambopata-mono', 'tambopata-caiman'],
-    resumen: 'Tres días en la Reserva Nacional Tambopata: lago Sandoval, caminatas por el bosque y salidas de noche.',
-    lugares: ['Puerto Maldonado', 'Río Madre de Dios', 'Lago Sandoval', 'Reserva Nacional Tambopata'],
-    itinerario: [
-      { titulo: 'Día 1', pasos: ['Recojo en el aeropuerto o terminal de Puerto Maldonado.', 'Bote hasta el albergue.', 'Caminata nocturna.'] },
-      { titulo: 'Día 2', pasos: ['Lago Sandoval en canoa.', 'Caminata por el bosque.', 'Salida de noche para ver caimanes.'] },
-      { titulo: 'Día 3', pasos: ['Amanecer en la selva.', 'Regreso a Puerto Maldonado.'] },
-    ],
+    slug: 'tambopata-4-dias', cat: 'selva', destacado: true,
+    nombre: 'Tambopata 4 días / 3 noches', duracion: '4 días / 3 noches', dificultad: 'Fácil', altura: 'selva baja',
+    foto: 'lodge-aereo', galeria: ['lodge-guacamayos', 'lodge-capibaras'],
+    precio: { monto: 290, moneda: 'USD' },
+    resumen: 'Cuatro días en la Reserva Nacional Tambopata, desde Puerto Maldonado.',
+    lugares: ['Puerto Maldonado', 'Reserva Nacional Tambopata'],
+    fuente: 'florencio',
+    alojamiento: '[Albergue por confirmar]',
+    itinerario: null, incluye: null, noIncluye: null,
   },
   {
-    slug: 'tambopata-4-dias', cat: 'tambopata',
-    nombre: 'Tambopata y collpa de guacamayos', duracion: '4 días / 3 noches', dificultad: 'Moderada', altura: 'selva baja',
-    foto: 'tambopata-guacamayo', galeria: ['tambopata-lago', 'tambopata-rio'],
-    resumen: 'Suma la collpa: la pared de arcilla donde, al amanecer, bajan loros y guacamayos.',
-    lugares: ['Puerto Maldonado', 'Lago Sandoval', 'Collpa de guacamayos', 'Reserva Nacional Tambopata'],
+    slug: 'collpas-tambopata-inn-2-dias', cat: 'selva', destacado: true,
+    nombre: 'Collpa Chuncho · 2 días / 1 noche', duracion: '2 días / 1 noche', dificultad: 'Fácil', altura: 'selva baja',
+    foto: 'lodge-collpa', galeria: ['lodge-habitacion', 'lodge-botes'],
+    precio: { monto: 250, moneda: 'USD' },
+    resumen: 'Una noche en un eco-lodge al límite de la Reserva Nacional Tambopata y, al amanecer, la collpa Chuncho, donde bajan guacamayos y loros a comer arcilla.',
+    lugares: ['Puerto Maldonado', 'Río Tambopata', 'Torre de observación', 'Collpa Chuncho'],
+    fuente: 'programa',
+    alojamiento: 'Collpas Tambopata Inn: eco-lodge con bar, piscina y comida buffet, en el límite de la Reserva Nacional Tambopata. Habitaciones de 24 a 68 m², con baño privado y ventana abierta al bosque.',
     itinerario: [
-      { titulo: 'Día 1', pasos: ['Recojo en Puerto Maldonado y bote al albergue.', 'Caminata nocturna.'] },
-      { titulo: 'Día 2', pasos: ['Collpa de loros y guacamayos al amanecer.', 'Caminata por el bosque.'] },
-      { titulo: 'Día 3', pasos: ['Lago Sandoval.', 'Salida de noche para ver caimanes.'] },
-      { titulo: 'Día 4', pasos: ['Regreso a Puerto Maldonado.'] },
+      { titulo: 'Día 1 · Puerto Maldonado – albergue', pasos: [
+        'Llegada a Puerto Maldonado, capital de Madre de Dios.',
+        'Unas 2 horas en bus y un tramo en bote hasta el albergue.',
+        'Bebida de bienvenida y una charla corta sobre el albergue.',
+        'Por la tarde, caminata de 2 a 4 km por bosque primario: plantas medicinales, las actividades económicas de la zona y la posibilidad de ver siete especies de monos y muchas aves.',
+        'Visita a la torre de observación de 50 m, con vista de la cuenca amazónica.',
+        'Opcional por la noche: salida en bote por el río Tambopata para ver caimanes blancos y negros.',
+      ] },
+      { titulo: 'Día 2 · Collpa Chuncho – Puerto Maldonado', pasos: [
+        'Salida al amanecer, cuando la collpa está más activa.',
+        'Observación a 50 m del barranco: guacamayos rojo y verde, escarlata y azul y amarillo, y varias especies de loros más pequeños.',
+        'En el bote, posibilidad de ver capibaras, tortugas y aves de río.',
+        'Regreso a Puerto Maldonado, con llegada alrededor de las 12:30 p. m.',
+      ] },
     ],
+    incluye: ['Traslado de llegada y salida desde el aeropuerto de Puerto Maldonado', 'Alojamiento', 'Comidas, desde el almuerzo del primer día hasta el desayuno del último', 'Excursiones con guía bilingüe (grupos de hasta 10 personas por guía)', 'Las actividades del itinerario', 'Transporte fluvial'],
+    noIncluye: ['Seguros', 'Pasajes aéreos nacionales o internacionales', 'Pasaje de bus a Puerto Maldonado', 'Noches adicionales por cancelación de vuelos', 'Bebidas alcohólicas', 'Agua embotellada y snacks', 'Gastos personales', 'Tasas de aeropuerto', 'Exceso de equipaje', 'Visas', 'Lavandería'],
+    llevar: ['Repelente de insectos', 'Protector solar', 'Lentes de sol', 'Sombrero', 'Mochila pequeña', 'Linterna con pilas', 'Cámara, cargador y baterías', 'Binoculares, si tienes', 'Poncho o casaca para la lluvia', 'Pantalones largos y livianos, de colores claros', 'Camisas de manga larga, livianas y de colores claros', 'Polos de manga corta', 'Sandalias para el albergue', 'Botas de jebe o zapatos de trekking impermeables'],
   },
   {
-    slug: 'lago-sandoval-full-day', cat: 'tambopata',
-    nombre: 'Lago Sandoval Full Day', duracion: '1 día', dificultad: 'Fácil', altura: 'selva baja',
-    foto: 'tambopata-rio', galeria: ['tambopata-lago', 'tambopata-mono'],
-    resumen: 'Un día desde Puerto Maldonado: bote por el río, caminata por el bosque y canoa por el lago Sandoval.',
-    lugares: ['Puerto Maldonado', 'Río Madre de Dios', 'Lago Sandoval'],
+    slug: 'lago-sandoval-3-dias', cat: 'selva',
+    nombre: 'Lago Sandoval 3 días / 2 noches', duracion: '3 días / 2 noches', dificultad: 'Fácil', altura: 'selva baja',
+    foto: 'tambopata-lago', galeria: ['lodge-capibaras', 'tambopata-mono'],
+    precio: null,
+    resumen: 'La Isla de los Monos, el lago Sandoval en bote a remo y el amanecer en un puente colgante a 30 m sobre el bosque.',
+    lugares: ['Puerto Maldonado', 'Río Madre de Dios', 'Isla de los Monos', 'Lago Sandoval', 'Canopy'],
+    fuente: 'programa',
+    alojamiento: 'Albergue con piscina a orillas del río Madre de Dios [nombre del albergue: confirmar si se muestra]',
     itinerario: [
-      { titulo: 'Lago Sandoval', pasos: ['Recojo en Puerto Maldonado.', 'Bote por el río Madre de Dios.', 'Caminata hasta el lago.', 'Canoa por el lago Sandoval.', 'Regreso a Puerto Maldonado.'] },
+      { titulo: 'Día 1 · Llegada a Puerto Maldonado', pasos: [
+        'Recepción en el aeropuerto o el terminal terrestre.',
+        'Traslado al albergue en bote por el río Madre de Dios.',
+        'Bienvenida, instalación y almuerzo.',
+        'Visita a la Isla de los Monos, para ver especies como el mono capuchino.',
+        'Por la noche, salida para ver caimanes blancos y capibaras.',
+        'Cena y descanso.',
+      ] },
+      { titulo: 'Día 2 · Lago Sandoval', pasos: [
+        'Después del desayuno, caminata de 3 km por la selva hasta el lago Sandoval, uno de los más grandes de la Reserva Nacional Tambopata.',
+        'Paseo en bote a remo para ver aves, monos y otras especies, con posibilidad de ver nutrias gigantes y caimanes grandes.',
+        'Almuerzo típico en el albergue.',
+        'Por la noche, caminata para descubrir la fauna nocturna.',
+        'Cena y descanso.',
+      ] },
+      { titulo: 'Día 3 · Canopy y retorno', pasos: [
+        'A las 5:30 a. m., caminata por el canopy, a 30 metros de altura, con vista del río Madre de Dios.',
+        'Desde las plataformas se ven aves como tucanes, guacamayos, tangaras y oropéndolas.',
+        'Desayuno y traslado al aeropuerto o al terminal de bus.',
+      ] },
     ],
+    incluye: ['Hospedaje', 'Guía', 'Transporte aeropuerto – albergue – aeropuerto', 'Alimentación: desayuno, almuerzo y cena', 'Piscina'],
+    noIncluye: ['Consumo de bar (bebidas alcohólicas)', 'Entrada a la Reserva Nacional Tambopata (US$ 20)', 'Propinas'],
+    llevar: ['Repelente', 'Linterna', 'Binoculares', 'Protector solar', 'Zapatos de caminata', 'Camisa de manga larga y pantalón largo, de preferencia de colores claros'],
   },
-  // Paquetes
   {
-    slug: 'cusco-machu-picchu-4-dias', cat: 'paquetes', destacado: true,
-    nombre: 'Cusco y Machu Picchu', duracion: '4 días / 3 noches', dificultad: 'Fácil', altura: 'hasta 3,700 m',
-    foto: 'machu-picchu', galeria: ['cusco', 'valle-sagrado'],
-    resumen: 'Lo esencial en cuatro días: City Tour, Valle Sagrado y Machu Picchu, con los traslados.',
-    lugares: ['Cusco', 'Valle Sagrado', 'Machu Picchu'],
+    slug: 'collpa-guacamayos-full-day', cat: 'selva',
+    nombre: 'Full Day Collpa de Guacamayos', duracion: '1 día', dificultad: 'Fácil', altura: 'selva baja',
+    foto: 'lodge-guacamayos', galeria: ['lodge-collpa', 'lodge-botes'],
+    precio: null,
+    resumen: 'Un día desde Puerto Maldonado a la collpa Chuncho, una de las collpas de guacamayos más grandes del mundo.',
+    lugares: ['Puerto Maldonado', 'Comunidad de Filadelfia', 'Collpa Chuncho'],
+    fuente: 'programa',
     itinerario: [
-      { titulo: 'Día 1 · Llegada y City Tour', pasos: ['Recojo en el aeropuerto de Cusco.', 'Mañana libre para aclimatarse.', 'City Tour por la tarde.'] },
-      { titulo: 'Día 2 · Valle Sagrado', pasos: ['Pisac, Urubamba y Ollantaytambo.', 'Tren a Aguas Calientes.'] },
-      { titulo: 'Día 3 · Machu Picchu', pasos: ['Visita guiada de Machu Picchu.', 'Tren de regreso a Cusco.'] },
-      { titulo: 'Día 4 · Salida', pasos: ['Traslado al aeropuerto.'] },
+      { titulo: 'Collpa Chuncho', pasos: [
+        'Salida a las 3:00 a. m. desde Puerto Maldonado, con opción de recojo en cualquier punto de la ciudad.',
+        'Unas 2 horas en carro hasta la comunidad de Filadelfia.',
+        '30 minutos en bote hasta la collpa Chuncho.',
+        'Observación del descenso de guacamayos y otras aves amazónicas, que llegan en las primeras horas de la mañana a comer minerales.',
+        'Regreso a la ciudad por la misma ruta.',
+      ] },
     ],
+    incluye: null, noIncluye: null,
   },
   {
-    slug: 'cusco-machu-picchu-tambopata-7-dias', cat: 'paquetes',
-    nombre: 'Cusco, Machu Picchu y Tambopata', duracion: '7 días / 6 noches', dificultad: 'Moderada', altura: 'hasta 3,700 m',
-    foto: 'tambopata-guacamayo', galeria: ['machu-picchu', 'tambopata-lago'],
-    resumen: 'Los Andes y la Amazonía en un viaje: Cusco, Machu Picchu y tres días en Tambopata.',
-    lugares: ['Cusco', 'Valle Sagrado', 'Machu Picchu', 'Puerto Maldonado', 'Tambopata'],
+    slug: 'manu-4-dias', cat: 'selva', destacado: true,
+    nombre: 'Manu 4 días / 3 noches', duracion: '4 días / 3 noches', dificultad: 'Moderada', altura: 'de 3,500 m a selva baja',
+    foto: 'manu-gallito', galeria: ['manu-gallito-2', 'tambopata-mono'],
+    precio: { monto: 270, moneda: 'USD' },
+    resumen: 'De Cusco a la Amazonía por tierra: el bosque nublado, con orquídeas y el gallito de las rocas, y los días en la selva del Manu. Todo incluido.',
+    lugares: ['Cusco', 'Paucartambo', 'Bosque nublado', 'Manu'],
+    fuente: 'florencio',
     itinerario: [
-      { titulo: 'Días 1 a 4 · Cusco y Machu Picchu', pasos: ['Llegada, City Tour, Valle Sagrado y Machu Picchu.'] },
-      { titulo: 'Días 5 a 7 · Tambopata', pasos: ['Vuelo a Puerto Maldonado.', 'Lago Sandoval y selva.', 'Regreso.'] },
+      { titulo: 'Día 1 · Cusco – bosque nublado – Paucartambo', pasos: [
+        'Recojo en tu hotel de Cusco [hora por confirmar].',
+        'Paso por Paucartambo y bajada al bosque nublado, lleno de orquídeas, heliconias y helechos primitivos.',
+        'Con suerte, el ritual de apareamiento del gallito de las rocas, y la posibilidad de ver águilas.',
+        'Noche en el albergue.',
+      ] },
+      { titulo: 'Días 2 a 4', pasos: ['[Itinerario por confirmar: está en el documento «Manu básico 4 días y 3 noches»]'] },
     ],
+    incluye: ['Todo incluido [detalle por confirmar]'], noIncluye: null,
+  },
+
+  // ---- Puno ----
+  {
+    slug: 'puno-lago-titicaca', cat: 'puno', destacado: true,
+    nombre: 'Puno y Lago Titicaca', duracion: '[Días por confirmar]', dificultad: 'Fácil', altura: '3,800 m',
+    foto: 'titicaca-uros', galeria: ['titicaca-balsa', 'cusco'],
+    precio: { monto: 360, moneda: null }, // REVISAR: «360» sin moneda
+    resumen: 'El Lago Titicaca desde Puno: las islas flotantes de los Uros y el lago navegable más alto del mundo.',
+    lugares: ['Puno', 'Lago Titicaca'],
+    fuente: 'florencio',
+    itinerario: null, incluye: null, noIncluye: null,
   },
 ];
 
-// Qué incluye, de referencia, por categoría (lo que ofrecen las webs líderes).
-// REVISAR: se reemplaza con lo que incluye cada tour de Inkas Golden.
-const INCLUYE = {
-  'machu-picchu': { si: ['Recojo en tu hotel de Cusco', 'Tren de ida y vuelta', 'Bus de subida y bajada', 'Entrada a Machu Picchu', 'Guía'], no: ['Comidas no indicadas', 'Propinas'] },
-  cusco: { si: ['Recojo en tu hotel de Cusco', 'Transporte turístico', 'Guía'], no: ['Boleto turístico o entradas', 'Comidas no indicadas'] },
-  caminatas: { si: ['Traslados', 'Guía', 'Campamento y comidas durante la caminata', 'Entrada a Machu Picchu'], no: ['Bolsa de dormir', 'Propinas'] },
-  tambopata: { si: ['Recojo en Puerto Maldonado', 'Transporte en bote', 'Albergue', 'Comidas en el albergue', 'Guía', 'Entrada a la reserva'], no: ['Vuelo a Puerto Maldonado', 'Bebidas'] },
-  paquetes: { si: ['Traslados', 'Hoteles', 'Tours del itinerario', 'Guía'], no: ['Vuelos', 'Comidas no indicadas'] },
-};
-
+// Qué llevar, general por categoría (consejo, no dato del negocio). Si el tour
+// tiene su propia lista (la del programa del albergue), se usa esa.
 const LLEVAR = {
   'machu-picchu': ['Pasaporte o DNI original (lo piden en la entrada)', 'Ropa por capas', 'Protector solar y gorra', 'Repelente', 'Agua'],
   cusco: ['Ropa abrigadora por capas', 'Protector solar', 'Agua', 'Soles en efectivo'],
-  caminatas: ['Pasaporte original', 'Zapatillas de trekking', 'Casaca impermeable', 'Ropa térmica', 'Bastones'],
-  tambopata: ['Ropa de manga larga y colores claros', 'Repelente', 'Linterna', 'Poncho de lluvia', 'Binoculares'],
-  paquetes: ['Pasaporte o DNI', 'Ropa por capas', 'Repelente para la selva'],
+  caminatas: ['Zapatillas de trekking o con buena suela', 'Casaca abrigadora e impermeable', 'Gorro, guantes y lentes de sol', 'Protector solar', 'Agua y algo dulce', 'Soles en efectivo'],
+  selva: ['Ropa de manga larga y colores claros', 'Repelente', 'Linterna', 'Poncho de lluvia', 'Binoculares'],
+  puno: ['Ropa abrigadora', 'Protector solar', 'Lentes de sol', 'Gorro'],
 };
 
 // Preguntas frecuentes, con datos generales y comprobables.
 const PREGUNTAS = [
+  ['¿Dónde y a qué hora me recogen?', 'En los tours desde Cusco, en tu hotel. La hora exacta depende del tour: te la confirmamos por WhatsApp al reservar. [Horarios de recojo de cada tour: por confirmar]'],
+  ['¿Qué calzado necesito?', 'Para los tours culturales bastan zapatillas cómodas. Para las montañas y las caminatas, zapatillas de trekking o con buena suela, porque hay tramos de tierra y piedra. En la selva, calzado que se pueda mojar.'],
   ['¿Cuál es la mejor época para viajar a Cusco y Machu Picchu?', 'La temporada seca, de mayo a septiembre, tiene cielos más despejados. De diciembre a marzo llueve más, pero hay menos gente.'],
-  ['¿Qué es el soroche y cómo evitarlo?', 'Es el malestar por la altura: Cusco está a unos 3,400 m. Descansa el primer día, come liviano, toma bastante agua y deja los tours más altos para después.'],
-  ['¿Con cuánta anticipación reservo Machu Picchu?', 'Las entradas tienen cupos diarios. En temporada alta conviene reservar con semanas de anticipación, y el Camino Inca con meses.'],
-  ['¿El Camino Inca está abierto todo el año?', 'No: cierra en febrero por mantenimiento. El resto del año necesita permiso oficial, que solo tramita una agencia autorizada.'],
-  ['¿Cómo llego a Tambopata?', 'En avión desde Cusco o Lima hasta Puerto Maldonado. Desde Cusco también hay buses por la carretera Interoceánica.'],
+  ['¿Qué es el soroche y cómo evitarlo?', 'Es el malestar por la altura: Cusco está a unos 3,400 m. Descansa el primer día, come liviano, toma bastante agua y deja las montañas para después.'],
+  ['¿Cómo llego a Tambopata?', 'En avión desde Cusco o Lima hasta Puerto Maldonado, o en bus desde Cusco por la carretera Interoceánica. Desde Puerto Maldonado, los albergues se alcanzan en bote.'],
 ];
 
-// Sección «Por qué viajar con nosotros». REVISAR: nada de esto se afirma sin
+// «Por qué viajar con nosotros». REVISAR: nada de esto se afirma sin
 // confirmarlo con Florencio (años, guías, permisos, reseñas).
 const POR_QUE = [
   ['Agencia de Cusco', 'Estamos en Cusco: te atendemos antes, durante y después del viaje. [Dirección de la oficina por confirmar]'],
@@ -317,11 +359,12 @@ const POR_QUE = [
 
 // Destinos del «giro» de la portada, en orden de recorrido.
 const DESTINOS = [
-  { nombre: 'Machu Picchu', foto: 'machu-picchu', texto: 'La ciudadela inca, entre montañas, sobre el valle del Urubamba.', href: 'machu-picchu.html' },
-  { nombre: 'Valle Sagrado', foto: 'valle-sagrado', texto: 'Pisac, Ollantaytambo y los pueblos del río Urubamba.', href: 'tour-valle-sagrado.html' },
+  { nombre: 'Machu Picchu', foto: 'machu-picchu', texto: 'La ciudadela inca, entre montañas, sobre el valle del Urubamba.', href: 'tour-machu-picchu-2-dias.html' },
+  { nombre: 'Valle Sagrado', foto: 'valle-sagrado', texto: 'El valle del río Urubamba y sus sitios arqueológicos.', href: 'tour-valle-sagrado.html' },
   { nombre: 'Montaña de 7 Colores', foto: 'montana-colores', texto: 'Vinicunca, a más de 5,000 metros de altura.', href: 'tour-montana-7-colores.html' },
   { nombre: 'Laguna Humantay', foto: 'humantay', texto: 'Agua turquesa al pie del nevado.', href: 'tour-laguna-humantay.html' },
-  { nombre: 'Tambopata', foto: 'tambopata-lago', texto: 'La Amazonía peruana: lagos, guacamayos y selva.', href: 'tambopata.html' },
+  { nombre: 'Tambopata', foto: 'lodge-collpa', texto: 'La collpa de guacamayos, el lago Sandoval y la selva.', href: 'tambopata.html' },
+  { nombre: 'Manu', foto: 'manu-gallito', texto: 'El bosque nublado del gallito de las rocas.', href: 'tour-manu-4-dias.html' },
 ];
 
-module.exports = { MARCA, CONTACTO, IDIOMAS, CATEGORIAS, TOURS, INCLUYE, LLEVAR, PREGUNTAS, POR_QUE, DESTINOS };
+module.exports = { MARCA, CONTACTO, IDIOMAS, CATEGORIAS, TOURS, LLEVAR, PREGUNTAS, POR_QUE, DESTINOS };

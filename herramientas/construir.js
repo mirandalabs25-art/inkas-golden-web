@@ -47,10 +47,28 @@ function version(rel) {
   return fs.existsSync(f) ? crypto.createHash('md5').update(fs.readFileSync(f)).digest('hex').slice(0, 8) : '0';
 }
 
-function precio(t, largo) {
-  if (t.precio) return `${largo ? 'Desde ' : 'Desde '}<b>US$ ${esc(t.precio)}</b>`;
-  faltas.add('precio de cada tour');
+// Precio en soles o dólares, como lo mandó Florencio. Sin moneda, se marca.
+function monto(p) {
+  if (!p || p.monto == null) return null;
+  const n = Number(p.monto).toLocaleString('en-US');
+  if (p.moneda === 'PEN') return `S/ ${n}`;
+  if (p.moneda === 'USD') return `US$ ${n}`;
+  faltas.add('moneda de algunos precios (¿soles o dólares?)');
+  return `${n} <!-- REVISAR: moneda --><span class="falta">[¿S/ o US$?]</span>`;
+}
+function precio(t) {
+  const m = monto(t.precio);
+  if (m) return `<b>${m}</b>`;
+  faltas.add('precio de ' + t.nombre);
   return '<!-- REVISAR: precio --><span class="falta">Precio por confirmar</span>';
+}
+
+// Foto del tour; si no hay una que sea de ese lugar, un recuadro que lo dice
+// (una foto de otro sitio se leería como si fuera ese).
+function fotoTarjeta(t) {
+  if (t.foto) return `<img src="${mini(t.foto)}" alt="${esc(t.nombre)}" width="720" height="480" loading="lazy">`;
+  faltas.add('foto de ' + t.nombre);
+  return `<!-- REVISAR: foto --><span class="sin-foto"><b>${esc(t.nombre)}</b><small>[Foto por conseguir]</small></span>`;
 }
 
 // --- iconos (trazos simples, sin librerías) ---------------------------------
@@ -93,7 +111,7 @@ function submenu(cat) {
         <div class="submenu__dentro">
           <a class="submenu__foto" href="${cat.archivo}"><img src="${mini(cat.foto)}" alt="" width="360" height="240" loading="lazy"><span>${esc(cat.titulo)}</span></a>
           <ul class="submenu__lista" role="list">
-${lista.map((t) => `            <li><a href="${paginaTour(t)}"><span>${esc(t.nombre)}</span><small>${esc(t.duracion)}</small></a></li>`).join('\n')}
+${lista.map((t) => `            <li><a href="${paginaTour(t)}"><span>${esc(t.nombre)}</span><small>${/\[/.test(t.duracion) ? '' : esc(t.duracion)}</small></a></li>`).join('\n')}
           </ul>
           <a class="submenu__todos" href="${cat.archivo}">Ver todos los tours →</a>
         </div>
@@ -206,11 +224,11 @@ ${pie()}
 function tarjeta(t) {
   return `<li class="tarjeta revelar">
       <a href="${paginaTour(t)}">
-        <span class="tarjeta__foto"><img src="${mini(t.foto)}" alt="${esc(t.nombre)}" width="720" height="480" loading="lazy"><span class="tarjeta__dur">${ICONO.reloj}${esc(t.duracion)}</span></span>
+        <span class="tarjeta__foto">${fotoTarjeta(t)}<span class="tarjeta__dur">${ICONO.reloj}${conFaltas(t.duracion)}</span></span>
         <span class="tarjeta__cuerpo">
           <span class="tarjeta__nivel">${esc(t.dificultad)} · ${esc(t.altura)}</span>
           <b class="tarjeta__nombre">${esc(t.nombre)}</b>
-          <span class="tarjeta__lugares">${t.lugares.slice(0, 4).map(esc).join(' · ')}</span>
+          <span class="tarjeta__lugares">${t.lugares.slice(0, 4).map(conFaltas).join(' · ')}</span>
           <span class="tarjeta__pie"><span class="tarjeta__precio">${precio(t)}</span><span class="tarjeta__ver">Ver tour →</span></span>
         </span>
       </a>
@@ -255,7 +273,7 @@ function paginaInicio() {
   const filas = CATEGORIAS.map((c) => `<section class="seccion fila" id="${c.clave}">
   ${cab(++n, c.titulo, c.bajada, [c.archivo, 'Ver todos →'])}
   <ul class="tarjetas tarjetas--fila" role="list">
-    ${toursDe(c.clave).slice(0, 4).map(tarjeta).join('\n    ')}
+    ${toursDe(c.clave).slice().sort((a, b) => (b.destacado ? 1 : 0) - (a.destacado ? 1 : 0)).slice(0, 4).map(tarjeta).join('\n    ')}
   </ul>
 </section>`).join('\n\n');
 
@@ -337,7 +355,7 @@ ${bandaFinal('Cuéntanos cuántos días tienes y armamos tu viaje.', 'Hola, quie
 
   PAGINAS['index.html'] = pagina({
     titulo: `${MARCA.nombre} — Tours a Machu Picchu, Cusco y Tambopata`,
-    descripcion: `${MARCA.nombre}, agencia de viajes en Cusco: tours a Machu Picchu, Valle Sagrado, Montaña de 7 Colores, Camino Inca, Tambopata y paquetes turísticos.`,
+    descripcion: `${MARCA.nombre}, agencia de viajes en Cusco: tours a Machu Picchu, Valle Sagrado, Montaña de 7 Colores, Laguna Humantay, Salkantay, Tambopata, Manu y el Lago Titicaca.`,
     clase: 'inicio', activa: 'index.html', cuerpo,
   });
 }
@@ -380,25 +398,47 @@ ${bandaFinal(`¿No encuentras el tour que buscas? Te lo armamos.`, `Hola, quiero
 // --- tour -----------------------------------------------------------------------
 function paginaTourHtml(t) {
   const c = catDe(t.cat);
-  const inc = S.INCLUYE[t.cat];
-  const llevar = S.LLEVAR[t.cat];
+  const llevar = t.llevar || S.LLEVAR[t.cat];
   const relacionados = toursDe(t.cat).filter((x) => x !== t).slice(0, 3);
-  const msg = `Hola, quiero reservar el tour ${t.nombre} (${t.duracion})`;
+  const duracionTexto = /\[/.test(t.duracion) ? '' : ` (${t.duracion})`;
+  const msg = `Hola, quiero reservar el tour ${t.nombre}${duracionTexto}`;
+  const delPrograma = t.fuente === 'programa' ? ' <span class="etiqueta etiqueta--ok">Del programa del albergue</span>' : '';
+
+  const galeria = t.foto
+    ? `<div class="galeria">
+    <figure class="galeria__grande"><img src="${img(t.foto)}" alt="${esc(t.nombre)}" width="1600" height="1067"></figure>
+${t.galeria.map((g) => `    <figure><img src="${mini(g)}" alt="" width="720" height="480" loading="lazy"></figure>`).join('\n')}
+  </div>`
+    : `<div class="galeria galeria--sin">${fotoTarjeta(t)}</div>`;
+
+  const itinerario = t.itinerario
+    ? `<div class="itinerario">
+${t.itinerario.map((d, i) => `          <details class="dia"${i === 0 ? ' open' : ''}>
+            <summary><span class="dia__num">${String(i + 1).padStart(2, '0')}</span>${conFaltas(d.titulo)}${ICONO.flecha}</summary>
+            <ol role="list">${d.pasos.map((p) => `<li>${conFaltas(p)}</li>`).join('')}</ol>
+          </details>`).join('\n')}
+        </div>
+        ${t.fuente === 'programa' ? '' : `<p class="bloque__nota">${falta('Horarios de este tour')}</p>`}`
+    : `<p>${falta('Itinerario de este tour')}</p>`;
+
+  const lista = (items, clase, icono) => `<ul role="list" class="${clase}">${items.map((x) => `<li>${icono}<span>${conFaltas(x)}</span></li>`).join('')}</ul>`;
+  const incluye = `<div class="incluye">
+          <div><h3 class="bloque__sub">Incluye</h3>${t.incluye ? lista(t.incluye, 'incluye__si', ICONO.si) : `<p>${falta('Qué incluye')}</p>`}</div>
+          <div><h3 class="bloque__sub">No incluye</h3>${t.noIncluye ? lista(t.noIncluye, 'incluye__no', ICONO.no) : `<p>${falta('Qué no incluye')}</p>`}</div>
+        </div>`;
+
   const cuerpo = `<div class="tour">
   <div class="tour__cabeza">
     <nav class="migas migas--oscuras" aria-label="Estás en"><a href="index.html">Inicio</a><span>/</span><a href="${c.archivo}">${esc(c.titulo)}</a><span>/</span><span>${esc(t.nombre)}</span></nav>
     <h1 class="tour__titulo">${esc(t.nombre)}</h1>
     <ul class="tour__datos" role="list">
-      <li>${ICONO.reloj}<span><small>Duración</small>${esc(t.duracion)}</span></li>
+      <li>${ICONO.reloj}<span><small>Duración</small>${conFaltas(t.duracion)}</span></li>
       <li>${ICONO.paso}<span><small>Dificultad</small>${esc(t.dificultad)}</span></li>
       <li>${ICONO.monte}<span><small>Altura</small>${esc(t.altura)}</span></li>
     </ul>
   </div>
 
-  <div class="galeria">
-    <figure class="galeria__grande"><img src="${img(t.foto)}" alt="${esc(t.nombre)}" width="1600" height="1067"></figure>
-${t.galeria.map((g) => `    <figure><img src="${mini(g)}" alt="" width="720" height="480" loading="lazy"></figure>`).join('\n')}
-  </div>
+  ${galeria}
 
   <div class="tour__cuerpo">
     <div class="tour__principal">
@@ -406,27 +446,22 @@ ${t.galeria.map((g) => `    <figure><img src="${mini(g)}" alt="" width="720" hei
         <h2 class="bloque__titulo">Resumen</h2>
         <p class="tour__resumen">${esc(t.resumen)}</p>
         <h3 class="bloque__sub">Lugares que visitarás</h3>
-        <ul class="lugares" role="list">${t.lugares.map((l) => `<li>${esc(l)}</li>`).join('')}</ul>
+        <ul class="lugares" role="list">${t.lugares.map((l) => `<li>${conFaltas(l)}</li>`).join('')}</ul>
+      </section>
+${t.alojamiento ? `
+      <section class="bloque">
+        <h2 class="bloque__titulo">Alojamiento</h2>
+        <p>${conFaltas(t.alojamiento)}</p>
+      </section>
+` : ''}
+      <section class="bloque">
+        <h2 class="bloque__titulo">Itinerario${delPrograma}</h2>
+        ${itinerario}
       </section>
 
       <section class="bloque">
-        <h2 class="bloque__titulo">Itinerario <span class="etiqueta">De referencia · por confirmar</span></h2>
-        <div class="itinerario">
-${t.itinerario.map((d, i) => `          <details class="dia"${i === 0 ? ' open' : ''}>
-            <summary><span class="dia__num">${String(i + 1).padStart(2, '0')}</span>${esc(d.titulo)}${ICONO.flecha}</summary>
-            <ol role="list">${d.pasos.map((p) => `<li>${esc(p)}</li>`).join('')}</ol>
-          </details>`).join('\n')}
-        </div>
-        <!-- REVISAR: horarios y detalle del itinerario, con la ficha de Inkas Golden -->
-      </section>
-
-      <section class="bloque">
-        <h2 class="bloque__titulo">Qué incluye <span class="etiqueta">Por confirmar</span></h2>
-        <!-- REVISAR: lista de referencia; reemplazar con lo que incluye este tour -->
-        <div class="incluye">
-          <ul role="list" class="incluye__si">${inc.si.map((x) => `<li>${ICONO.si}${esc(x)}</li>`).join('')}</ul>
-          <ul role="list" class="incluye__no">${inc.no.map((x) => `<li>${ICONO.no}${esc(x)}</li>`).join('')}</ul>
-        </div>
+        <h2 class="bloque__titulo">Qué incluye${delPrograma}</h2>
+        ${incluye}
       </section>
 
       <section class="bloque">
@@ -435,12 +470,12 @@ ${t.itinerario.map((d, i) => `          <details class="dia"${i === 0 ? ' open' 
       </section>
 
       <section class="bloque">
-        <h2 class="bloque__titulo">Precios</h2>
+        <h2 class="bloque__titulo">Precio</h2>
         <table class="precios">
-          <thead><tr><th>Servicio</th><th>Precio por persona</th></tr></thead>
           <tbody>
-            <tr><td>Servicio compartido (grupo)</td><td>${falta('por confirmar')}</td></tr>
-            <tr><td>Servicio privado</td><td>${falta('por confirmar')}</td></tr>
+            <tr><th scope="row">Precio del tour</th><td>${precio(t)} <!-- REVISAR: ¿por persona? --></td></tr>
+            <tr><th scope="row">Tour privado</th><td>${falta('por confirmar')}</td></tr>
+            <tr><th scope="row">Descuentos (estudiantes, niños)</th><td>${falta('por confirmar')}</td></tr>
           </tbody>
         </table>
       </section>
@@ -453,8 +488,8 @@ ${t.itinerario.map((d, i) => `          <details class="dia"${i === 0 ? ' open' 
 
     <aside class="reserva" id="reservar" aria-label="Reservar">
       <div class="reserva__caja">
-        <p class="reserva__precio">${precio(t, true)}<small>por persona</small></p>
-        <form data-reserva data-tour="${esc(t.nombre)} (${esc(t.duracion)})">
+        <p class="reserva__precio">${precio(t)}<small>${esc(t.nombre)}</small></p>
+        <form data-reserva data-tour="${esc(t.nombre)}${esc(duracionTexto)}">
           <label>Fecha<input type="date" name="fecha"></label>
           <label>Viajeros<select name="personas">${[1, 2, 3, 4, 5, 6].map((x) => `<option>${x}</option>`).join('')}<option>7 o más</option></select></label>
           <label>Tu nombre<input type="text" name="nombre" autocomplete="name" placeholder="Opcional"></label>
@@ -475,8 +510,8 @@ ${relacionados.length ? `<section class="seccion seccion--piedra">
 
 <a class="reservar-movil" href="${wa(msg)}" target="_blank" rel="noopener"><span>${precio(t)}</span><b>${ICONO.wa} Reservar</b></a>`;
   PAGINAS[paginaTour(t)] = pagina({
-    titulo: `${t.nombre} ${t.duracion} — ${MARCA.nombre}`,
-    descripcion: `${t.nombre} (${t.duracion}) con ${MARCA.nombre}. ${t.resumen}`,
+    titulo: `${t.nombre} — ${MARCA.nombre}`,
+    descripcion: `${t.nombre}${duracionTexto} con ${MARCA.nombre}. ${t.resumen}`,
     activa: c.archivo, cuerpo, clase: 'pagina pagina--tour',
   });
 }
