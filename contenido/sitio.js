@@ -75,6 +75,25 @@ const CATEGORIAS = [
   },
 ];
 
+// --- Programas de Jaguar Tambopata Jungle (JTJ) --------------------------------
+// De los 4 PDFs «2026_Programa…_JTJ» y del catálogo «Programas 2026» (páginas
+// 13 a 37 = los mismos 4 programas). Ninguno trae precio. Lo que comparten:
+const JTJ = {
+  alojamiento: 'Casa hospedaje Jaguar Tambopata Jungle, en la Reserva Nacional Tambopata, a unos 40 minutos en bote desde Puerto Maldonado: bungalows con terraza, restaurante, piscina, tirolesa y puente colgante, rodeados de bosque conservado. Ingreso desde las 10:00 a. m.; salida hasta las 5:00 p. m.',
+  incluye: ['Entrada a la Reserva Nacional Tambopata', 'Guía profesional', 'Hospedaje y alimentación', 'Transporte fluvial'],
+  noIncluye: ['Bebidas del bar'],
+  llevar: ['Documentos personales', 'Repelente', 'Protector solar', 'Gorro', 'Lentes de sol', 'Ropa de baño', 'Abrigo', 'Poncho de lluvia portátil', 'Botella de agua reutilizable', 'Ropa cómoda', 'Calzado cerrado y cómodo para caminar', 'Tus medicamentos, si tomas alguno', 'Ventilador de mano'],
+  nota: 'El orden y los horarios pueden cambiar según el guía, el clima y el estado físico del grupo. Avísanos la hora de tu vuelo de regreso para programar el retorno a la ciudad.',
+  llegada: 'Salida desde el Puerto Capitanía de Puerto Maldonado: unos 40 minutos en bote por el río Madre de Dios hasta la casa hospedaje, en la Reserva Nacional Tambopata.',
+  sandoval: [
+    'Unos 15 minutos en bote hasta el puesto de control del lago Sandoval.',
+    'Caminata de unos 3 km por el bosque, entre ficus, lupunas, palmeras y shihuahuacos, con la posibilidad de ver monos, aves y ardillas.',
+    'Paseo en canoa a remo por el lago: con suerte, lobos de río, guacamayos, shanshos, garzas, caimán negro y monos.',
+  ],
+  monos: 'Kayak por el río Madre de Dios y visita a la Isla de Monos Rolín, donde viven monos capuchinos rescatados por pobladores locales.',
+  matsiguenka: 'Visita a una familia Matsiguenka, originaria del Parque Nacional del Manu, que vive a orillas del río Madre de Dios: el hilado, el fuego encendido a la manera tradicional y el tiro con flecha.',
+};
+
 // --- Tours --------------------------------------------------------------------
 // precio: { monto, moneda: 'PEN' | 'USD' | null } — null = por confirmar.
 // fuente: de dónde sale la ficha ('florencio' = sus mensajes; 'programa' =
@@ -203,15 +222,73 @@ const TOURS = [
 
   // ---- Tambopata y Manu ----
   {
+    // Florencio: «Tour Tambopata 4 días 3 noches, 290 dólares». El programa de
+    // 4D/3N que mandó es el de JTJ. REVISAR: confirmar que el precio es de este.
     slug: 'tambopata-4-dias', cat: 'selva', destacado: true,
-    nombre: 'Tambopata 4 días / 3 noches', duracion: '4 días / 3 noches', dificultad: 'Fácil', altura: 'selva baja',
-    foto: 'lodge-aereo', galeria: ['lodge-guacamayos', 'lodge-capibaras'],
+    nombre: 'Gran experiencia en Tambopata · 4 días / 3 noches', duracion: '4 días / 3 noches', dificultad: 'Fácil', altura: 'selva baja',
+    foto: 'jtj-collpa-loros', galeria: ['jtj-bungalows', 'jtj-kayak'],
     precio: { monto: 290, moneda: 'USD' },
-    resumen: 'Cuatro días en la Reserva Nacional Tambopata, desde Puerto Maldonado.',
-    lugares: ['Puerto Maldonado', 'Reserva Nacional Tambopata'],
-    fuente: 'florencio',
-    alojamiento: '[Albergue por confirmar]',
-    itinerario: null, incluye: null, noIncluye: null,
+    resumen: 'Naturaleza, cultura, aventura y vida local: el lago Sandoval, la collpa de loros al amanecer, una familia Matsiguenka, una chacra, tirolesa y kayak.',
+    lugares: ['Puerto Maldonado', 'Lago Sandoval', 'Collpa de loros La Cachuela', 'Familia Matsiguenka', 'Isla de Monos Rolín'],
+    fuente: 'programa',
+    alojamiento: JTJ.alojamiento + ' [Confirmar que los US$ 290 son de este programa]',
+    itinerario: [
+      { titulo: 'Día 1 · Llegada, pesca y caimanes', pasos: [JTJ.llegada, 'Instalación y caminata por el bosque que rodea el albergue.', '1:00 p. m. Almuerzo.', '3:00 p. m. Pesca deportiva cerca del río Madre de Dios y, si el día acompaña, el atardecer.', 'Salida por el río para ver caimanes y, con suerte, capibaras, aves y murciélagos.', '7:30 p. m. Cena.'] },
+      { titulo: 'Día 2 · Lago Sandoval', pasos: ['8:00 a. m. Desayuno.', '10:00 a. m. ' + JTJ.sandoval[0], ...JTJ.sandoval.slice(1), 'Almuerzo en el puesto de una familia local y regreso por el mismo sendero.', '7:30 p. m. Cena.'] },
+      { titulo: 'Día 3 · Collpa de loros, familia Matsiguenka y chacra', pasos: ['4:30 a. m. Salida en canoa por el río Madre de Dios, al amanecer, a la collpa de loros La Cachuela, donde los loros llegan a comer arcilla.', 'Regreso para el desayuno y mañana libre en la piscina.', '1:00 p. m. Almuerzo.', JTJ.matsiguenka, 'Visita a una chacra local: la agroforestería en la selva y los frutos de temporada.'] },
+      { titulo: 'Día 4 · Tirolesa, kayak y retorno', pasos: ['8:00 a. m. Desayuno.', 'Tirolesa y puente colgante cerca del albergue.', '1:00 p. m. Almuerzo.', '3:00 p. m. ' + JTJ.monos, 'Recojo del equipaje y retorno a la ciudad.'] },
+    ],
+    notaItinerario: JTJ.nota,
+    incluye: JTJ.incluye, noIncluye: JTJ.noIncluye, llevar: JTJ.llevar,
+  },
+  {
+    slug: 'experiencia-completa-3-dias', cat: 'selva', destacado: true,
+    nombre: 'Experiencia completa de Tambopata · 3 días / 2 noches', duracion: '3 días / 2 noches', dificultad: 'Fácil', altura: 'selva baja',
+    foto: 'jtj-puente-colgante', galeria: ['jtj-lago-canoa', 'jtj-capuchino'],
+    precio: null,
+    resumen: 'Naturaleza, cultura y aventura: una familia Matsiguenka, el lago Sandoval, caminata nocturna, tirolesa, puente colgante y kayak.',
+    lugares: ['Puerto Maldonado', 'Familia Matsiguenka', 'Lago Sandoval', 'Isla de Monos Rolín'],
+    fuente: 'programa',
+    alojamiento: JTJ.alojamiento,
+    itinerario: [
+      { titulo: 'Día 1 · Llegada, familia Matsiguenka y caimanes', pasos: [JTJ.llegada, 'Instalación y caminata por el bosque que rodea el albergue.', '1:00 p. m. Almuerzo.', '3:00 p. m. ' + JTJ.matsiguenka, 'Pesca deportiva cerca del río y, si el día acompaña, el atardecer.', 'Salida por el río para ver caimanes y, con suerte, capibaras, aves y murciélagos.', 'Cena.'] },
+      { titulo: 'Día 2 · Lago Sandoval y caminata nocturna', pasos: ['8:00 a. m. Desayuno.', '10:00 a. m. ' + JTJ.sandoval[0], ...JTJ.sandoval.slice(1), 'Almuerzo en el puesto de una familia local y regreso al albergue.', 'Cena.', 'Caminata nocturna para descubrir insectos, aves y reptiles.'] },
+      { titulo: 'Día 3 · Tirolesa, kayak y retorno', pasos: ['8:00 a. m. Desayuno.', '10:00 a. m. Tirolesa y puente colgante cerca del albergue.', '1:00 p. m. Almuerzo.', '3:00 p. m. ' + JTJ.monos, 'Recojo del equipaje y retorno a la ciudad.'] },
+    ],
+    notaItinerario: JTJ.nota,
+    incluye: JTJ.incluye, noIncluye: JTJ.noIncluye, llevar: JTJ.llevar,
+  },
+  {
+    slug: 'aventura-lago-sandoval-2-dias', cat: 'selva',
+    nombre: 'Aventura y Lago Sandoval · 2 días / 1 noche', duracion: '2 días / 1 noche', dificultad: 'Fácil', altura: 'selva baja',
+    foto: 'jtj-tirolesa', galeria: ['jtj-lobo-de-rio', 'jtj-kayak'],
+    precio: null,
+    resumen: 'Tirolesa, puente colgante, kayak, caimanes y caminata nocturna el primer día; el lago Sandoval el segundo.',
+    lugares: ['Puerto Maldonado', 'Isla de Monos Rolín', 'Lago Sandoval'],
+    fuente: 'programa',
+    alojamiento: JTJ.alojamiento,
+    itinerario: [
+      { titulo: 'Día 1 · Aventura en la selva', pasos: [JTJ.llegada, '10:30 a. m. Instalación en las habitaciones.', 'Tirolesa y puente colgante cerca del albergue.', '1:00 p. m. Almuerzo.', JTJ.monos, 'Salida por el río para ver caimanes y, con suerte, capibaras, aves y murciélagos.', '7:00 p. m. Cena.', '8:00 p. m. Caminata nocturna para descubrir insectos, aves y reptiles.'] },
+      { titulo: 'Día 2 · Lago Sandoval y retorno', pasos: [...JTJ.sandoval, 'Almuerzo en el puesto de una familia local.', 'Regreso al albergue por el mismo sendero, recojo de las pertenencias y retorno a la ciudad.'] },
+    ],
+    notaItinerario: JTJ.nota,
+    incluye: JTJ.incluye, noIncluye: JTJ.noIncluye, llevar: JTJ.llevar,
+  },
+  {
+    slug: 'lago-sandoval-2-dias', cat: 'selva',
+    nombre: 'Lago Sandoval · 2 días / 1 noche', duracion: '2 días / 1 noche', dificultad: 'Fácil', altura: 'selva baja',
+    foto: 'jtj-lago-canoa', galeria: ['jtj-shansho', 'jtj-tortugas'],
+    precio: null,
+    resumen: 'Kayak, la Isla de Monos Rolín y caimanes el primer día; el lago Sandoval en canoa a remo el segundo.',
+    lugares: ['Puerto Maldonado', 'Isla de Monos Rolín', 'Lago Sandoval'],
+    fuente: 'programa',
+    alojamiento: JTJ.alojamiento,
+    itinerario: [
+      { titulo: 'Día 1 · Llegada, kayak y caimanes', pasos: [JTJ.llegada, '11:00 a. m. Instalación y caminata de introducción.', '1:00 p. m. Almuerzo.', '3:00 p. m. ' + JTJ.monos, '5:00 p. m. Salida para ver caimanes en las orillas del río Madre de Dios, y otras especies nocturnas como aves o capibaras.', '7:30 p. m. Cena.', 'Opcional: caminata nocturna alrededor del albergue.'] },
+      { titulo: 'Día 2 · Lago Sandoval y retorno', pasos: [...JTJ.sandoval, 'Almuerzo a orillas del lago.', 'Regreso al albergue por el mismo sendero, recojo de las pertenencias y retorno a la ciudad.'] },
+    ],
+    notaItinerario: JTJ.nota,
+    incluye: JTJ.incluye, noIncluye: JTJ.noIncluye, llevar: JTJ.llevar,
   },
   {
     slug: 'collpas-tambopata-inn-2-dias', cat: 'selva', destacado: true,
@@ -244,13 +321,13 @@ const TOURS = [
   },
   {
     slug: 'lago-sandoval-3-dias', cat: 'selva',
-    nombre: 'Lago Sandoval 3 días / 2 noches', duracion: '3 días / 2 noches', dificultad: 'Fácil', altura: 'selva baja',
+    nombre: 'Lago Sandoval y canopy · 3 días / 2 noches', duracion: '3 días / 2 noches', dificultad: 'Fácil', altura: 'selva baja',
     foto: 'tambopata-lago', galeria: ['lodge-capibaras', 'tambopata-mono'],
     precio: null,
     resumen: 'La Isla de los Monos, el lago Sandoval en bote a remo y el amanecer en un puente colgante a 30 m sobre el bosque.',
     lugares: ['Puerto Maldonado', 'Río Madre de Dios', 'Isla de los Monos', 'Lago Sandoval', 'Canopy'],
     fuente: 'programa',
-    alojamiento: 'Albergue con piscina a orillas del río Madre de Dios [nombre del albergue: confirmar si se muestra]',
+    alojamiento: 'Monte Amazónico Lodge, con piscina, a orillas del río Madre de Dios.',
     itinerario: [
       { titulo: 'Día 1 · Llegada a Puerto Maldonado', pasos: [
         'Recepción en el aeropuerto o el terminal terrestre.',

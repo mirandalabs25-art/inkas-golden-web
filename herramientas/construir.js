@@ -419,6 +419,7 @@ ${t.itinerario.map((d, i) => `          <details class="dia"${i === 0 ? ' open' 
             <ol role="list">${d.pasos.map((p) => `<li>${conFaltas(p)}</li>`).join('')}</ol>
           </details>`).join('\n')}
         </div>
+        ${t.notaItinerario ? `<p class="bloque__nota">${conFaltas(t.notaItinerario)}</p>` : ''}
         ${t.fuente === 'programa' ? '' : `<p class="bloque__nota">${falta('Horarios de este tour')}</p>`}`
     : `<p>${falta('Itinerario de este tour')}</p>`;
 
