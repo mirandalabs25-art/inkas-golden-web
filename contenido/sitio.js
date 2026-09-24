@@ -18,25 +18,25 @@
 
 const MARCA = {
   nombre: 'Inkas Golden',
-  // REVISAR: ¿el nombre lleva espacio? La página de Facebook dice «Inkas Goldent».
+  // Confirmado por Rodrigo (24/09): «Inkas Golden», con K y separado.
   lema: 'Agencia de viajes en Cusco',
-  dominio: null,            // REVISAR: ¿inkasgolden.com es de Florencio? Hoy es un WordPress de 2015 sin usar.
+  dominio: null,            // REVISAR: dominio nuevo. inkasgolden.com NO es de la agencia (24/09). Rodrigo creía que era inkasgoldenperu.com o inkasgoldencusco.com (23/09, sin confirmar).
 };
 
-// Datos de contacto: todos por confirmar con Florencio.
+// Datos de contacto. Respuestas de Rodrigo del 23/09 (22:23) y del 24/09.
 const CONTACTO = {
   whatsapp: '51945897269',  // Dado por Rodrigo el 2026-09-23 (22:50)
   whatsappVisible: '+51 945 897 269',
-  correo: null,             // REVISAR
+  correo: null,             // REVISAR: lo crean Rodrigo y Claude (pendiente de Rodrigo, 23/09)
   direccion: null,          // REVISAR: oficina en Cusco
-  horario: null,            // REVISAR
-  ruc: null,                // REVISAR
-  razonSocial: null,        // REVISAR
-  facebook: 'https://www.facebook.com/people/Inkas-Goldent/100066264081032/', // REVISAR: confirmar que es la página de la agencia
+  horario: 'De 8:00 a. m. a 8:00 p. m.', // Rodrigo, 23/09 («de 8 de la mañana a 8 de la noche»). REVISAR: ¿todos los días?
+  ruc: null,                // No tiene RUC (Rodrigo, 23/09). Hace falta para el libro de reclamaciones y para Meta.
+  razonSocial: null,        // No tiene razón social (Rodrigo, 23/09 y 24/09).
+  facebook: null,           // La página «Inkas Goldent | Cusco» NO es de la agencia (24/09): se va a crear una nueva.
   instagram: null,
   tiktok: null,
-  tripadvisor: null,        // REVISAR: ¿tiene ficha? En las 20 webs de referencia es el sello de confianza más usado
-  libroReclamaciones: null, // REVISAR: obligatorio en Perú para quien vende al público
+  tripadvisor: null,        // No tiene (24/09). Lo que se quiere es juntar reseñas en Google: falta crear el Perfil de Negocio.
+  libroReclamaciones: null, // REVISAR: no tiene; lo vamos a crear (pedido de Rodrigo, 23/09). Obligatorio en Perú.
 };
 
 const IDIOMAS = ['ES', 'EN'];
@@ -76,10 +76,13 @@ const CATEGORIAS = [
 ];
 
 // --- Programas de Jaguar Tambopata Jungle (JTJ) --------------------------------
+// Rodrigo (23/09 y 24/09): la web presenta los tours como si la agencia los
+// operara directamente. Los nombres de los albergues y operadores NO se
+// publican. Las fotos de los albergues sí se pueden usar (24/09).
 // De los 4 PDFs «2026_Programa…_JTJ» y del catálogo «Programas 2026» (páginas
 // 13 a 37 = los mismos 4 programas). Ninguno trae precio. Lo que comparten:
 const JTJ = {
-  alojamiento: 'Casa hospedaje Jaguar Tambopata Jungle, en la Reserva Nacional Tambopata, a unos 40 minutos en bote desde Puerto Maldonado: bungalows con terraza, restaurante, piscina, tirolesa y puente colgante, rodeados de bosque conservado. Ingreso desde las 10:00 a. m.; salida hasta las 5:00 p. m.',
+  alojamiento: 'Casa hospedaje en la Reserva Nacional Tambopata, a unos 40 minutos en bote desde Puerto Maldonado: bungalows con terraza, restaurante, piscina, tirolesa y puente colgante, rodeados de bosque conservado. Ingreso desde las 10:00 a. m.; salida hasta las 5:00 p. m.',
   incluye: ['Entrada a la Reserva Nacional Tambopata', 'Guía profesional', 'Hospedaje y alimentación', 'Transporte fluvial'],
   noIncluye: ['Bebidas del bar'],
   llevar: ['Documentos personales', 'Repelente', 'Protector solar', 'Gorro', 'Lentes de sol', 'Ropa de baño', 'Abrigo', 'Poncho de lluvia portátil', 'Botella de agua reutilizable', 'Ropa cómoda', 'Calzado cerrado y cómodo para caminar', 'Tus medicamentos, si tomas alguno', 'Ventilador de mano'],
@@ -105,7 +108,7 @@ const TOURS = [
     slug: 'machu-picchu-2-dias', cat: 'machu-picchu', destacado: true,
     nombre: 'Machu Picchu 2 días / 1 noche', duracion: '2 días / 1 noche', dificultad: 'Fácil', altura: '2,430 m',
     foto: 'machu-picchu', galeria: ['valle-sagrado', 'machu-picchu-nubes'],
-    precio: { monto: 310, moneda: 'USD' }, // REVISAR: el mensaje dice «310» sin moneda
+    precio: { monto: 310, moneda: 'USD' }, // Dólares, confirmado (23/09). REVISAR: el 24/09 se dictó «300»; la lista de Florencio dice 310.
     resumen: 'El Valle Sagrado con el tour de conexión, tren a Machu Picchu Pueblo, una noche allí y la ciudadela con guía al día siguiente.',
     lugares: ['Cusco', 'Valle Sagrado', 'Ollantaytambo', 'Machu Picchu Pueblo', 'Machu Picchu'],
     fuente: 'florencio',
@@ -159,7 +162,7 @@ const TOURS = [
     slug: 'montana-7-colores', cat: 'caminatas', destacado: true,
     nombre: 'Montaña de 7 Colores', duracion: '1 día', dificultad: 'Exigente', altura: 'más de 5,000 m',
     foto: 'montana-colores', galeria: ['salkantay', 'siete-lagunas'],
-    precio: { monto: 75, moneda: 'PEN' }, // REVISAR: el mensaje dice «Tour montaña 75 todo incluido»
+    precio: { monto: 75, moneda: 'PEN' }, // Soles, confirmado por Rodrigo (23/09 y 24/09).
     resumen: 'Vinicunca, la montaña de franjas de colores. Caminata de altura, con oxígeno y bastones incluidos.',
     lugares: ['Vinicunca'],
     fuente: 'florencio',
@@ -223,7 +226,7 @@ const TOURS = [
   // ---- Tambopata y Manu ----
   {
     // Florencio: «Tour Tambopata 4 días 3 noches, 290 dólares». El programa de
-    // 4D/3N que mandó es el de JTJ. REVISAR: confirmar que el precio es de este.
+    // 4D/3N que mandó es el de JTJ. Confirmado por Rodrigo (23/09 y 24/09): los US$ 290 son de la «Gran experiencia».
     slug: 'tambopata-4-dias', cat: 'selva', destacado: true,
     nombre: 'Gran experiencia en Tambopata · 4 días / 3 noches', duracion: '4 días / 3 noches', dificultad: 'Fácil', altura: 'selva baja',
     foto: 'jtj-collpa-loros', galeria: ['jtj-bungalows', 'jtj-kayak'],
@@ -231,7 +234,7 @@ const TOURS = [
     resumen: 'Naturaleza, cultura, aventura y vida local: el lago Sandoval, la collpa de loros al amanecer, una familia Matsiguenka, una chacra, tirolesa y kayak.',
     lugares: ['Puerto Maldonado', 'Lago Sandoval', 'Collpa de loros La Cachuela', 'Familia Matsiguenka', 'Isla de Monos Rolín'],
     fuente: 'programa',
-    alojamiento: JTJ.alojamiento + ' [Confirmar que los US$ 290 son de este programa]',
+    alojamiento: JTJ.alojamiento,
     itinerario: [
       { titulo: 'Día 1 · Llegada, pesca y caimanes', pasos: [JTJ.llegada, 'Instalación y caminata por el bosque que rodea el albergue.', '1:00 p. m. Almuerzo.', '3:00 p. m. Pesca deportiva cerca del río Madre de Dios y, si el día acompaña, el atardecer.', 'Salida por el río para ver caimanes y, con suerte, capibaras, aves y murciélagos.', '7:30 p. m. Cena.'] },
       { titulo: 'Día 2 · Lago Sandoval', pasos: ['8:00 a. m. Desayuno.', '10:00 a. m. ' + JTJ.sandoval[0], ...JTJ.sandoval.slice(1), 'Almuerzo en el puesto de una familia local y regreso por el mismo sendero.', '7:30 p. m. Cena.'] },
@@ -291,14 +294,14 @@ const TOURS = [
     incluye: JTJ.incluye, noIncluye: JTJ.noIncluye, llevar: JTJ.llevar,
   },
   {
-    slug: 'collpas-tambopata-inn-2-dias', cat: 'selva', destacado: true,
+    slug: 'collpa-chuncho-2-dias', cat: 'selva', destacado: true,
     nombre: 'Collpa Chuncho · 2 días / 1 noche', duracion: '2 días / 1 noche', dificultad: 'Fácil', altura: 'selva baja',
     foto: 'lodge-collpa', galeria: ['lodge-habitacion', 'lodge-botes'],
     precio: { monto: 250, moneda: 'USD' },
     resumen: 'Una noche en un eco-lodge al límite de la Reserva Nacional Tambopata y, al amanecer, la collpa Chuncho, donde bajan guacamayos y loros a comer arcilla.',
     lugares: ['Puerto Maldonado', 'Río Tambopata', 'Torre de observación', 'Collpa Chuncho'],
     fuente: 'programa',
-    alojamiento: 'Collpas Tambopata Inn: eco-lodge con bar, piscina y comida buffet, en el límite de la Reserva Nacional Tambopata. Habitaciones de 24 a 68 m², con baño privado y ventana abierta al bosque.',
+    alojamiento: 'Eco-lodge con bar, piscina y comida buffet, en el límite de la Reserva Nacional Tambopata. Habitaciones de 24 a 68 m², con baño privado y ventana abierta al bosque.',
     itinerario: [
       { titulo: 'Día 1 · Puerto Maldonado – albergue', pasos: [
         'Llegada a Puerto Maldonado, capital de Madre de Dios.',
@@ -327,7 +330,7 @@ const TOURS = [
     resumen: 'La Isla de los Monos, el lago Sandoval en bote a remo y el amanecer en un puente colgante a 30 m sobre el bosque.',
     lugares: ['Puerto Maldonado', 'Río Madre de Dios', 'Isla de los Monos', 'Lago Sandoval', 'Canopy'],
     fuente: 'programa',
-    alojamiento: 'Monte Amazónico Lodge, con piscina, a orillas del río Madre de Dios.',
+    alojamiento: 'Albergue con piscina, a orillas del río Madre de Dios.',
     itinerario: [
       { titulo: 'Día 1 · Llegada a Puerto Maldonado', pasos: [
         'Recepción en el aeropuerto o el terminal terrestre.',
@@ -383,28 +386,28 @@ const TOURS = [
     resumen: 'De Cusco a la Amazonía por tierra: el bosque nublado del gallito de las rocas, el río Alto Madre de Dios, el lago Machuhuasi en balsa y una collpa de loros.',
     lugares: ['Paucartambo', 'Ninamarca', 'Bosque nublado', 'Pilcopata', 'Río Alto Madre de Dios', 'Lago Machuhuasi', 'Collpa de loros', 'Laguna Maravilla'],
     fuente: 'programa',
-    alojamiento: 'Noche 1: Manu Green Lodge, en Pilcopata, con duchas y baños. Noches 2 y 3: Paititi Lodge, con baño privado y ducha.',
+    alojamiento: 'Noche 1: albergue en Pilcopata, con duchas y baños. Noches 2 y 3: albergue en la selva, con baño privado y ducha.',
     itinerario: [
       { titulo: 'Día 1 · Cusco – Paucartambo – bosque nublado – Pilcopata', pasos: [
         'Recojo en tu hotel de Cusco entre las 5:30 y las 6:00 a. m.',
         'Subida a la zona alta de Paucartambo, con visita a las chullpas (torres funerarias) de Ninamarca.',
         'Paso por Ajanaco, a 3,600 m, y bajada por el bosque nublado, lleno de orquídeas, heliconias y helechos primitivos.',
         'Parada para intentar ver el ritual de apareamiento del gallito de las rocas. También se pueden ver el pájaro paraguas amazónico, trogones, quetzales u oropéndolas; en esta zona vive el oso de anteojos.',
-        'Por la tarde, llegada a Pilcopata y noche en el Manu Green Lodge.',
+        'Por la tarde, llegada a Pilcopata y noche en el albergue.',
       ] },
       { titulo: 'Día 2 · Atalaya – río Alto Madre de Dios – lago Machuhuasi', pasos: [
         'Desayuno y caminata por la selva: una plantación de coca, aves, plantas y monos.',
         'En el puerto de Atalaya, bote a motor por el río Alto Madre de Dios, con una parada para caminar por un sendero y bañarse en aguas termales.',
         'Llegada al albergue y almuerzo.',
         'Por la tarde, paseo en balsa por el lago Machuhuasi: con suerte, shanshos, monos, caimanes enanos, capibaras y tapires.',
-        'Después de la cena, caminata nocturna. Noche en el Paititi Lodge.',
+        'Después de la cena, caminata nocturna. Noche en el albergue.',
       ] },
       { titulo: 'Día 3 · Collpa de loros y laguna Maravilla', pasos: [
         'Muy temprano, unos 25 minutos en bote hasta la collpa: una pared de arcilla con minerales donde se reúnen muchas especies de loros.',
         'Desayuno.',
         'Caminata por el bosque hasta la laguna privada Maravilla: desde una plataforma se ven aves, monos o caimanes enanos.',
         'Almuerzo y descanso en el albergue.',
-        'Por la tarde y por la noche, caminatas para ver insectos, ranas y arañas. Noche en el Paititi Lodge.',
+        'Por la tarde y por la noche, caminatas para ver insectos, ranas y arañas. Noche en el albergue.',
       ] },
       { titulo: 'Día 4 · Regreso a Cusco', pasos: [
         'Desayuno y regreso en bote a Atalaya.',
@@ -450,13 +453,14 @@ const PREGUNTAS = [
   ['¿Cómo llego a Tambopata?', 'En avión desde Cusco o Lima hasta Puerto Maldonado, o en bus desde Cusco por la carretera Interoceánica. Desde Puerto Maldonado, los albergues se alcanzan en bote.'],
 ];
 
-// «Por qué viajar con nosotros». REVISAR: nada de esto se afirma sin
-// confirmarlo con Florencio (años, guías, permisos, reseñas).
+// «Por qué viajar con nosotros». Solo lo confirmado por Rodrigo (23/09 y 24/09):
+// 20-25 años en el turismo, guías en español e inglés y otros idiomas a pedido,
+// y los medios de pago. La agencia NO está registrada en DIRCETUR: no se dice.
 const POR_QUE = [
   ['Agencia de Cusco', 'Estamos en Cusco: te atendemos antes, durante y después del viaje. [Dirección de la oficina por confirmar]'],
-  ['[Años de experiencia]', '[Desde qué año opera la agencia]'],
-  ['[Guías oficiales]', '[Idiomas de los guías y si son licenciados]'],
-  ['[Agencia autorizada]', '[Registro en DIRCETUR / MINCETUR, si lo tiene]'],
+  ['Más de 20 años en el turismo', 'Llevamos más de 20 años organizando viajes desde Cusco.'],
+  ['Guías en tu idioma', 'Guías en español e inglés, y en otros idiomas si nos lo pides al reservar.'],
+  ['Paga como prefieras', 'Yape, Plin, transferencia bancaria, tarjeta, PayPal o efectivo.'],
 ];
 
 // Destinos del «giro» de la portada, en orden de recorrido.

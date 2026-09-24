@@ -308,8 +308,8 @@ ${S.POR_QUE.map(([t, d], i) => `    <li class="razon revelar"><span class="razon
   const opiniones = `<section class="seccion seccion--piedra">
   ${cab(++n, 'Lo que dicen nuestros viajeros')}
   <div class="opiniones">
-    <!-- REVISAR: reseñas reales de TripAdvisor o Google. Nunca se inventa una. -->
-    <p class="opiniones__vacio">${falta('Reseñas reales de TripAdvisor o Google: 3 a 6, con nombre y país')}</p>
+    <!-- REVISAR: reseñas reales de Google, cuando exista el Perfil de Negocio. Nunca se inventa una. -->
+    <p class="opiniones__vacio">${falta('Reseñas reales de Google: se juntan cuando la agencia tenga su Perfil de Negocio')}</p>
   </div>
 </section>`;
 
@@ -403,7 +403,7 @@ function paginaTourHtml(t) {
   const relacionados = toursDe(t.cat).filter((x) => x !== t).slice(0, 3);
   const duracionTexto = /\[/.test(t.duracion) ? '' : ` (${t.duracion})`;
   const msg = `Hola, quiero reservar el tour ${t.nombre}${duracionTexto}`;
-  const delPrograma = t.fuente === 'programa' ? ' <span class="etiqueta etiqueta--ok">Del programa del operador</span>' : '';
+  const delPrograma = t.fuente === 'programa' ? ' <span class="etiqueta etiqueta--ok">Programa completo</span>' : '';
 
   const galeria = t.foto
     ? `<div class="galeria">
@@ -475,7 +475,7 @@ ${t.alojamiento ? `
         <h2 class="bloque__titulo">Precio</h2>
         <table class="precios">
           <tbody>
-            <tr><th scope="row">Precio del tour</th><td>${precio(t)} <!-- REVISAR: ¿por persona? --></td></tr>
+            <tr><th scope="row">Precio del tour</th><td>${precio(t)} por persona</td></tr>
             <tr><th scope="row">Tour privado</th><td>${falta('por confirmar')}</td></tr>
             <tr><th scope="row">Descuentos (estudiantes, niños)</th><td>${falta('por confirmar')}</td></tr>
           </tbody>
@@ -490,7 +490,7 @@ ${t.alojamiento ? `
 
     <aside class="reserva" id="reservar" aria-label="Reservar">
       <div class="reserva__caja">
-        <p class="reserva__precio">${precio(t)}<small>${esc(t.nombre)}</small></p>
+        <p class="reserva__precio">${precio(t)}<small>Por persona · ${esc(t.nombre)}</small></p>
         <form data-reserva data-tour="${esc(t.nombre)}${esc(duracionTexto)}">
           <label>Fecha<input type="date" name="fecha"></label>
           <label>Viajeros<select name="personas">${[1, 2, 3, 4, 5, 6].map((x) => `<option>${x}</option>`).join('')}<option>7 o más</option></select></label>
@@ -577,10 +577,11 @@ function paginaNosotros() {
   <div class="nosotros">
     <div class="nosotros__texto">
       <h2 class="cab__titulo">Nuestra historia</h2>
-      <!-- REVISAR: la historia de la agencia, con los datos de Florencio -->
-      <p>${falta('Desde cuándo opera la agencia y cómo empezó')}</p>
-      <p>${falta('Quién la dirige y qué la distingue')}</p>
-      <p>${falta('Registro de agencia (DIRCETUR / MINCETUR) y asociaciones, si las tiene')}</p>
+      <!-- Rodrigo (23/09 y 24/09): 20-25 años en el turismo; el dueño es la única persona de la agencia.
+           NO está registrada en DIRCETUR: no se menciona. REVISAR: cómo empezó, y si el dueño quiere aparecer con su nombre. -->
+      <p>Llevamos más de 20 años en el turismo, organizando viajes desde Cusco a Machu Picchu, los valles, las montañas y la selva.</p>
+      <p>Somos una agencia pequeña: te atiende directamente el dueño, desde la primera consulta hasta el final del viaje.</p>
+      <p>${falta('Cómo empezó la agencia, y el nombre del dueño si quiere que aparezca')}</p>
     </div>
     <figure class="nosotros__foto">
       <!-- REVISAR: foto real del equipo o de la oficina (no de banco de imágenes) -->
@@ -637,8 +638,7 @@ ${pasos.map(([t, d], i) => `    <li class="razon"><span class="razon__num">${i +
       <p>Para Machu Picchu y los trenes: nombre completo, número de pasaporte o DNI y nacionalidad de cada viajero, porque las entradas y los pasajes van a nombre de cada persona.</p>
       <p>Para los tours desde Cusco: el nombre de tu hotel, para el recojo.</p></article>
     <article class="tema" id="pagos"><p class="cab__num">03</p><h2>Formas de pago</h2>
-      <!-- REVISAR: Yape, Plin, transferencia, efectivo, tarjeta, PayPal… -->
-      <p>${falta('Formas de pago que acepta la agencia')}</p></article>
+      <p>Yape, Plin, transferencia bancaria, tarjeta, PayPal o efectivo.</p></article>
     <article class="tema" id="cancelaciones"><p class="cab__num">04</p><h2>Cambios y cancelaciones</h2>
       <!-- REVISAR: plazos y devoluciones. Las entradas a Machu Picchu y los trenes suelen tener sus propias reglas. -->
       <p>${falta('Política de cambios y cancelaciones')}</p></article>
