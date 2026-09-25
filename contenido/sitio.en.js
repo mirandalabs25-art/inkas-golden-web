@@ -300,7 +300,7 @@ const PREGUNTAS = [
   ['Is the price per person?', 'Yes. All prices on this website are per person. For groups or a private tour, write to us and we will send you a quote.'],
   ['How can I pay?', 'With Yape, Plin, bank transfer, card, PayPal or cash. Before any payment, we confirm availability and the price with you on WhatsApp.'],
   ['What language does the guide speak?', 'Our guides speak Spanish and English. If you need another language, ask when you book and we will arrange it.'],
-  ['Where and when will I be picked up?', 'For tours from Cusco, at your hotel. The exact time depends on the tour: we confirm it on WhatsApp when you book. [Pickup times for each tour: to be confirmed]'],
+  ['Where and when will I be picked up?', 'All tours from Cusco include pickup at your hotel (confirmed by the agency on 25 Sep). The exact time depends on the tour: we confirm it on WhatsApp when you book. [Pickup times for each tour: to be confirmed]'],
   ['What shoes do I need?', 'Comfortable sneakers are enough for the cultural tours. For the mountains and treks, hiking shoes or shoes with a good grip, because there are stretches of dirt and stone. In the rainforest, shoes that can get wet.'],
   ['When is the best time to visit Cusco and Machu Picchu?', 'The dry season, from May to September, has clearer skies. From December to March it rains more, but there are fewer people.'],
   ['What is altitude sickness (soroche) and how can I avoid it?', 'It is the discomfort caused by the altitude: Cusco is at about 3,400 m. Rest on the first day, eat light, drink plenty of water and leave the mountains for later.'],
@@ -308,7 +308,7 @@ const PREGUNTAS = [
 ];
 
 const POR_QUE = [
-  ['A Cusco agency', 'We are in Cusco: we look after you before, during and after your trip. [Office address to be confirmed]'],
+  ['A Cusco agency', 'We are in Cusco: we look after you before, during and after your trip. Our office is at Calle Plateros 328.'],
   ['Over 20 years in tourism', 'We have been organizing trips from Cusco for over 20 years.'],
   ['Guides in your language', 'Guides in Spanish and English, and in other languages if you ask when you book.'],
   ['Pay the way you prefer', 'Yape, Plin, bank transfer, card, PayPal or cash.'],

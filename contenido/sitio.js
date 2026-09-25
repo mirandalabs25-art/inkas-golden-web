@@ -28,7 +28,7 @@ const CONTACTO = {
   whatsapp: '51945897269',  // Dado por Rodrigo el 2026-09-23 (22:50)
   whatsappVisible: '+51 945 897 269',
   correo: null,             // REVISAR: lo crean Rodrigo y Claude (pendiente de Rodrigo, 23/09)
-  direccion: null,          // REVISAR: oficina en Cusco
+  direccion: 'Calle Plateros 328, Cusco', // Rodrigo, 25/09: «Mi oficina es Plateros, dirección 328». REVISAR: confirmar «Calle» y si hay piso u oficina.
   horario: 'De 8:00 a. m. a 8:00 p. m.', // Rodrigo, 23/09 («de 8 de la mañana a 8 de la noche»). REVISAR: ¿todos los días?
   ruc: null,                // No tiene RUC (Rodrigo, 23/09). Hace falta para el libro de reclamaciones y para Meta.
   razonSocial: null,        // No tiene razón social (Rodrigo, 23/09 y 24/09).
@@ -112,7 +112,7 @@ const TOURS = [
     slug: 'machu-picchu-2-dias', cat: 'machu-picchu', destacado: true,
     nombre: 'Machu Picchu 2 días / 1 noche', duracion: '2 días / 1 noche', dificultad: 'Fácil', altura: '2,430 m',
     foto: 'machu-picchu', galeria: ['valle-sagrado', 'machu-picchu-nubes'],
-    precio: { monto: 310, moneda: 'USD' }, // Dólares, confirmado (23/09). REVISAR: el 24/09 se dictó «300»; la lista de Florencio dice 310.
+    precio: { monto: 300, moneda: 'USD' }, // Dólares (23/09). Rodrigo dictó «300, todo incluido» el 24/09 y el 25/09; la lista de Florencio del 19/09 decía 310. Manda el 300. REVISAR: el 25/09 no dijo la moneda.
     resumen: 'El Valle Sagrado con el tour de conexión, tren a Machu Picchu Pueblo, una noche allí y la ciudadela con guía al día siguiente.',
     lugares: ['Cusco', 'Valle Sagrado', 'Ollantaytambo', 'Machu Picchu Pueblo', 'Machu Picchu'],
     fuente: 'florencio',
@@ -142,7 +142,7 @@ const TOURS = [
     slug: 'valle-sagrado', cat: 'cusco', destacado: true,
     nombre: 'Valle Sagrado de los Incas', duracion: '1 día', dificultad: 'Fácil', altura: 'hasta 3,760 m',
     foto: 'valle-sagrado', galeria: ['moray', 'maras'],
-    precio: { monto: 85, moneda: 'PEN' },
+    precio: { monto: 75, moneda: 'PEN' }, // Rodrigo, 25/09: «Tour Valle Sagrado, el precio 75». La lista de Florencio del 19/09 decía 85 soles. Manda el 75. REVISAR: el 25/09 no dijo la moneda.
     resumen: 'Todo el día por el valle del río Urubamba, con visita a los sitios arqueológicos.',
     lugares: ['[Lugares por confirmar]'],
     fuente: 'florencio',
@@ -187,7 +187,7 @@ const TOURS = [
     slug: 'laguna-humantay', cat: 'caminatas', destacado: true,
     nombre: 'Laguna Humantay', duracion: '1 día', dificultad: 'Exigente', altura: '4,200 m',
     foto: 'humantay', galeria: ['salkantay', 'siete-lagunas-2'],
-    precio: null,
+    precio: { monto: 80, moneda: 'PEN' }, // Rodrigo, 25/09: «Laguna Humantay, 80 soles, todo incluido».
     resumen: 'Una laguna turquesa al pie del nevado Humantay. Con oxígeno y bastones incluidos.',
     lugares: ['Laguna Humantay'],
     fuente: 'florencio',
@@ -234,7 +234,7 @@ const TOURS = [
     slug: 'tambopata-4-dias', cat: 'selva', destacado: true,
     nombre: 'Gran experiencia en Tambopata · 4 días / 3 noches', duracion: '4 días / 3 noches', dificultad: 'Fácil', altura: 'selva baja',
     foto: 'jtj-collpa-loros', galeria: ['jtj-bungalows', 'jtj-kayak'],
-    precio: { monto: 290, moneda: 'USD' },
+    precio: { monto: 280, moneda: 'USD' }, // Rodrigo, 25/09: «Tambopata, 280 dólares, todo incluido» (no dijo los días; se asume la «Gran experiencia» de 4D/3N, la única de Tambopata con precio). Antes, 290 (lista de Florencio, 19/09; confirmado el 23/09 y el 24/09). REVISAR con Florencio: ¿290 o 280?
     resumen: 'Naturaleza, cultura, aventura y vida local: el lago Sandoval, la collpa de loros al amanecer, una familia Matsiguenka, una chacra, tirolesa y kayak.',
     lugares: ['Puerto Maldonado', 'Lago Sandoval', 'Collpa de loros La Cachuela', 'Familia Matsiguenka', 'Isla de Monos Rolín'],
     fuente: 'programa',
@@ -430,7 +430,7 @@ const TOURS = [
     slug: 'puno-lago-titicaca', cat: 'puno', destacado: true,
     nombre: 'Puno y Lago Titicaca', duracion: '[Días por confirmar]', dificultad: 'Fácil', altura: '3,800 m',
     foto: 'titicaca-uros', galeria: ['titicaca-balsa', 'cusco'],
-    precio: { monto: 360, moneda: null }, // REVISAR: «360» sin moneda
+    precio: { monto: 360, moneda: 'PEN' }, // Rodrigo, 25/09: «Lago Titicaca, 360 soles, todo incluido». Siguen sin saberse los días.
     resumen: 'El Lago Titicaca desde Puno: las islas flotantes de los Uros y el lago navegable más alto del mundo.',
     lugares: ['Puno', 'Lago Titicaca'],
     fuente: 'florencio',
@@ -453,7 +453,7 @@ const PREGUNTAS = [
   ['¿El precio es por persona?', 'Sí. Todos los precios de la web son por persona. Para grupos o un tour privado, escríbenos y te cotizamos.'],
   ['¿Cómo puedo pagar?', 'Con Yape, Plin, transferencia bancaria, tarjeta, PayPal o en efectivo. Antes de cualquier pago te confirmamos por WhatsApp la disponibilidad y el precio.'],
   ['¿En qué idioma es el guía?', 'Nuestros guías hablan español e inglés. Si necesitas otro idioma, pídelo al reservar y lo coordinamos.'],
-  ['¿Dónde y a qué hora me recogen?', 'En los tours desde Cusco, en tu hotel. La hora exacta depende del tour: te la confirmamos por WhatsApp al reservar. [Horarios de recojo de cada tour: por confirmar]'],
+  ['¿Dónde y a qué hora me recogen?', 'Todos los tours desde Cusco incluyen recojo en tu hotel (confirmado por la agencia el 25/09). La hora exacta depende del tour: te la confirmamos por WhatsApp al reservar. [Horarios de recojo de cada tour: por confirmar]'],
   ['¿Qué calzado necesito?', 'Para los tours culturales bastan zapatillas cómodas. Para las montañas y las caminatas, zapatillas de trekking o con buena suela, porque hay tramos de tierra y piedra. En la selva, calzado que se pueda mojar.'],
   ['¿Cuál es la mejor época para viajar a Cusco y Machu Picchu?', 'La temporada seca, de mayo a septiembre, tiene cielos más despejados. De diciembre a marzo llueve más, pero hay menos gente.'],
   ['¿Qué es el soroche y cómo evitarlo?', 'Es el malestar por la altura: Cusco está a unos 3,400 m. Descansa el primer día, come liviano, toma bastante agua y deja las montañas para después.'],
@@ -464,7 +464,7 @@ const PREGUNTAS = [
 // 20-25 años en el turismo, guías en español e inglés y otros idiomas a pedido,
 // y los medios de pago. La agencia NO está registrada en DIRCETUR: no se dice.
 const POR_QUE = [
-  ['Agencia de Cusco', 'Estamos en Cusco: te atendemos antes, durante y después del viaje. [Dirección de la oficina por confirmar]'],
+  ['Agencia de Cusco', 'Estamos en Cusco: te atendemos antes, durante y después del viaje. Nuestra oficina está en Calle Plateros 328.'],
   ['Más de 20 años en el turismo', 'Llevamos más de 20 años organizando viajes desde Cusco.'],
   ['Guías en tu idioma', 'Guías en español e inglés, y en otros idiomas si nos lo pides al reservar.'],
   ['Paga como prefieras', 'Yape, Plin, transferencia bancaria, tarjeta, PayPal o efectivo.'],
