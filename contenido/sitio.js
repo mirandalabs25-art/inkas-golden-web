@@ -41,6 +41,10 @@ const CONTACTO = {
 
 const IDIOMAS = ['ES', 'EN'];
 
+// Confirmado por Rodrigo (23/09 y 24/09).
+const PAGOS = ['Yape', 'Plin', 'Transferencia', 'Tarjeta', 'PayPal', 'Efectivo'];
+const GUIAS = 'Español e inglés; otros idiomas a pedido';
+
 // --- Categorías = menú principal ---------------------------------------------
 const CATEGORIAS = [
   {
@@ -446,6 +450,9 @@ const LLEVAR = {
 
 // Preguntas frecuentes, con datos generales y comprobables.
 const PREGUNTAS = [
+  ['¿El precio es por persona?', 'Sí. Todos los precios de la web son por persona. Para grupos o un tour privado, escríbenos y te cotizamos.'],
+  ['¿Cómo puedo pagar?', 'Con Yape, Plin, transferencia bancaria, tarjeta, PayPal o en efectivo. Antes de cualquier pago te confirmamos por WhatsApp la disponibilidad y el precio.'],
+  ['¿En qué idioma es el guía?', 'Nuestros guías hablan español e inglés. Si necesitas otro idioma, pídelo al reservar y lo coordinamos.'],
   ['¿Dónde y a qué hora me recogen?', 'En los tours desde Cusco, en tu hotel. La hora exacta depende del tour: te la confirmamos por WhatsApp al reservar. [Horarios de recojo de cada tour: por confirmar]'],
   ['¿Qué calzado necesito?', 'Para los tours culturales bastan zapatillas cómodas. Para las montañas y las caminatas, zapatillas de trekking o con buena suela, porque hay tramos de tierra y piedra. En la selva, calzado que se pueda mojar.'],
   ['¿Cuál es la mejor época para viajar a Cusco y Machu Picchu?', 'La temporada seca, de mayo a septiembre, tiene cielos más despejados. De diciembre a marzo llueve más, pero hay menos gente.'],
@@ -473,4 +480,4 @@ const DESTINOS = [
   { nombre: 'Manu', foto: 'manu-gallito', texto: 'El bosque nublado del gallito de las rocas.', href: 'tour-manu-4-dias.html' },
 ];
 
-module.exports = { MARCA, CONTACTO, IDIOMAS, CATEGORIAS, TOURS, LLEVAR, PREGUNTAS, POR_QUE, DESTINOS };
+module.exports = { MARCA, CONTACTO, IDIOMAS, CATEGORIAS, TOURS, LLEVAR, PREGUNTAS, POR_QUE, DESTINOS , PAGOS, GUIAS };

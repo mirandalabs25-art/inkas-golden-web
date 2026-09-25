@@ -79,6 +79,7 @@ const ICONO = {
   no: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>',
   reloj: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>',
   monte: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 19l6.5-11 4 6.5 2.5-3.5L21 19Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
+  idioma: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h11v8H9l-4 3v-3H4Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M15 9h5v7h-1v3l-3-3h-4v-2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
   paso: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18h4l3-6 3 3 6-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
 };
 
@@ -176,6 +177,10 @@ function pie() {
       </ul>
     </div>
   </div>
+  <div class="pie__pagos">
+    <h2 class="pie__titulo">Formas de pago</h2>
+    <ul class="pagos" role="list">${S.PAGOS.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>
+  </div>
   <div class="pie__base">
     <span>© 2026 ${esc(MARCA.nombre)}</span>
     <span>${CONTACTO.razonSocial ? esc(CONTACTO.razonSocial) : falta('razón social')} · RUC ${CONTACTO.ruc ? esc(CONTACTO.ruc) : falta('RUC')}</span>
@@ -230,7 +235,7 @@ function tarjeta(t) {
           <span class="tarjeta__nivel">${esc(t.dificultad)} · ${esc(t.altura)}</span>
           <b class="tarjeta__nombre">${esc(t.nombre)}</b>
           <span class="tarjeta__lugares">${t.lugares.slice(0, 4).map(conFaltas).join(' · ')}</span>
-          <span class="tarjeta__pie"><span class="tarjeta__precio">${precio(t)}</span><span class="tarjeta__ver">Ver tour →</span></span>
+          <span class="tarjeta__pie"><span class="tarjeta__precio">${precio(t)}${t.precio && t.precio.monto != null ? '<small> por persona</small>' : ''}</span><span class="tarjeta__ver">Ver tour →</span></span>
         </span>
       </a>
     </li>`;
@@ -437,6 +442,7 @@ ${t.itinerario.map((d, i) => `          <details class="dia"${i === 0 ? ' open' 
       <li>${ICONO.reloj}<span><small>Duración</small>${conFaltas(t.duracion)}</span></li>
       <li>${ICONO.paso}<span><small>Dificultad</small>${esc(t.dificultad)}</span></li>
       <li>${ICONO.monte}<span><small>Altura</small>${esc(t.altura)}</span></li>
+      <li>${ICONO.idioma}<span><small>Guía</small>${esc(S.GUIAS)}</span></li>
     </ul>
   </div>
 
@@ -497,7 +503,9 @@ ${t.alojamiento ? `
           <label>Tu nombre<input type="text" name="nombre" autocomplete="name" placeholder="Opcional"></label>
           <button class="boton boton--oro" type="submit">${ICONO.wa} Reservar por WhatsApp</button>
         </form>
-        <p class="reserva__nota">Te confirmamos disponibilidad y precio por WhatsApp antes de cualquier pago. <a href="reservas-y-pagos.html">Cómo reservar y pagar</a></p>
+        <p class="reserva__nota">Te confirmamos disponibilidad y precio por WhatsApp antes de cualquier pago.</p>
+        <ul class="pagos pagos--claro" role="list" aria-label="Formas de pago">${S.PAGOS.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>
+        <p class="reserva__nota"><a href="reservas-y-pagos.html">Cómo reservar y pagar</a></p>
       </div>
     </aside>
   </div>
