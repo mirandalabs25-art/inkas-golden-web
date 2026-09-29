@@ -92,6 +92,11 @@ const TOURS = {
     lugares: ['[Places to be confirmed]'],
     incluye: ['Bus', 'Guide'],
   },
+  'cuatrimotos-valle-sagrado': {
+    nombre: 'ATV Ride through the Sacred Valley', duracion: '[Duration to be confirmed]', dificultad: '[Difficulty to be confirmed]', altura: 'up to 3,760 m',
+    resumen: 'The Sacred Valley by ATV, an alternative to the traditional bus tour.',
+    lugares: ['[Places to be confirmed]'],
+  },
   'montana-7-colores': {
     nombre: 'Rainbow Mountain', duracion: '1 day', dificultad: 'Challenging', altura: 'over 5,000 m',
     resumen: 'Vinicunca, the mountain striped with colors. A high-altitude hike, with oxygen and trekking poles included.',
@@ -102,6 +107,11 @@ const TOURS = {
     nombre: 'Palcoyo Mountain', duracion: '1 day', dificultad: 'Moderate', altura: 'over 4,900 m',
     resumen: 'The other rainbow mountain, with a shorter hike than Vinicunca.',
     lugares: ['Palcoyo'],
+  },
+  'cuatrimotos-montana-colores': {
+    nombre: 'ATV Ride to Rainbow Mountain', duracion: '[Duration to be confirmed]', dificultad: '[Difficulty to be confirmed]', altura: 'over 5,000 m',
+    resumen: 'Vinicunca by ATV, an alternative to the hike on foot.',
+    lugares: ['Vinicunca'],
   },
   'laguna-humantay': {
     nombre: 'Humantay Lake', duracion: '1 day', dificultad: 'Challenging', altura: '4,200 m',

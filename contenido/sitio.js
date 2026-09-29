@@ -150,6 +150,18 @@ const TOURS = [
     incluye: ['Bus de ida y retorno', 'Visita a los sitios arqueológicos'], noIncluye: null,
   },
   {
+    // Pedido de Rodrigo (29/09): agregar este tour. Sin precio, duración ni
+    // detalle del operador — nada de esto lo dio Florencio. REVISAR con él.
+    slug: 'cuatrimotos-valle-sagrado', cat: 'cusco',
+    nombre: 'Cuatrimotos por el Valle Sagrado', duracion: '[Duración por confirmar]', dificultad: '[Dificultad por confirmar]', altura: 'hasta 3,760 m',
+    foto: 'cuatrimotos-valle-sagrado', galeria: [], // Foto de referencia (Unsplash): cuatrimoto en montaña, no es del Valle Sagrado. Cambiar cuando lleguen fotos reales.
+    precio: null,
+    resumen: 'El Valle Sagrado en cuatrimoto, una alternativa al tour tradicional en bus.',
+    lugares: ['[Lugares por confirmar]'],
+    fuente: 'referencia',
+    itinerario: null, incluye: null, noIncluye: null,
+  },
+  {
     slug: 'valle-sur', cat: 'cusco',
     nombre: 'Valle Sur', duracion: '[Duración por confirmar]', dificultad: 'Fácil', altura: 'hasta 3,300 m',
     foto: 'valle-sur', galeria: [], // Foto de referencia (Unsplash): valle del Cusco, no es literalmente el Valle Sur. Cambiar cuando lleguen fotos reales.
@@ -172,6 +184,18 @@ const TOURS = [
     fuente: 'florencio',
     itinerario: null,
     incluye: ['Bus de ida y retorno', 'Desayuno', 'Almuerzo', 'Guía', 'Oxígeno', 'Bastones'], noIncluye: null,
+  },
+  {
+    // Pedido de Rodrigo (29/09): agregar este tour. Sin precio, duración ni
+    // detalle del operador — nada de esto lo dio Florencio. REVISAR con él.
+    slug: 'cuatrimotos-montana-colores', cat: 'caminatas',
+    nombre: 'Cuatrimotos a la Montaña de 7 Colores', duracion: '[Duración por confirmar]', dificultad: '[Dificultad por confirmar]', altura: 'más de 5,000 m',
+    foto: 'cuatrimotos-montana-colores', galeria: [], // Foto de referencia (Unsplash): cuatrimoto en montaña, no es Vinicunca. Cambiar cuando lleguen fotos reales.
+    precio: null,
+    resumen: 'Vinicunca en cuatrimoto, una alternativa a la caminata a pie.',
+    lugares: ['Vinicunca'],
+    fuente: 'referencia',
+    itinerario: null, incluye: null, noIncluye: null,
   },
   {
     slug: 'palcoyo', cat: 'caminatas',
