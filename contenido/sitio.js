@@ -111,7 +111,7 @@ const TOURS = [
   {
     slug: 'machu-picchu-2-dias', cat: 'machu-picchu', destacado: true,
     nombre: 'Machu Picchu 2 días / 1 noche', duracion: '2 días / 1 noche', dificultad: 'Fácil', altura: '2,430 m',
-    foto: 'machu-picchu', galeria: ['valle-sagrado', 'machu-picchu-nubes'],
+    foto: 'machu-picchu', galeria: ['machu-picchu-nubes', 'machu-picchu-huayna'],
     precio: { monto: 300, moneda: 'USD' }, // Dólares (23/09). Rodrigo dictó «300, todo incluido» el 24/09 y el 25/09; la lista de Florencio del 19/09 decía 310. Manda el 300. REVISAR: el 25/09 no dijo la moneda.
     resumen: 'El Valle Sagrado con el tour de conexión, tren a Machu Picchu Pueblo, una noche allí y la ciudadela con guía al día siguiente.',
     lugares: ['Cusco', 'Valle Sagrado', 'Ollantaytambo', 'Machu Picchu Pueblo', 'Machu Picchu'],
@@ -152,7 +152,7 @@ const TOURS = [
   {
     slug: 'valle-sur', cat: 'cusco',
     nombre: 'Valle Sur', duracion: '[Duración por confirmar]', dificultad: 'Fácil', altura: 'hasta 3,300 m',
-    foto: null, galeria: [],
+    foto: 'valle-sur', galeria: [], // Foto de referencia (Unsplash): valle del Cusco, no es literalmente el Valle Sur. Cambiar cuando lleguen fotos reales.
     precio: { monto: 50, moneda: 'PEN' },
     resumen: 'El valle al sur de Cusco, con sus sitios arqueológicos y pueblos coloniales.',
     lugares: ['[Lugares por confirmar]'],
@@ -176,7 +176,7 @@ const TOURS = [
   {
     slug: 'palcoyo', cat: 'caminatas',
     nombre: 'Montaña de Palcoyo', duracion: '1 día', dificultad: 'Moderada', altura: 'más de 4,900 m',
-    foto: null, galeria: [],
+    foto: 'palcoyo', galeria: ['montana-colores-2'], // Foto de Palcoyo confirmada (Cordillera Arcoiris de Pallcoyo, Unsplash). Cambiar cuando lleguen fotos reales.
     precio: { monto: 95, moneda: 'PEN' },
     resumen: 'La otra montaña de colores, con una caminata más corta que la de Vinicunca.',
     lugares: ['Palcoyo'],
@@ -208,7 +208,7 @@ const TOURS = [
   {
     slug: 'waqrapukara', cat: 'caminatas',
     nombre: 'Waqrapukara', duracion: '1 día', dificultad: 'Moderada', altura: 'unos 4,100 m',
-    foto: null, galeria: [],
+    foto: 'waqrapukara', galeria: ['siete-lagunas'], // Foto de referencia (Unsplash): paisaje andino genérico, no es literalmente Waqrapukara. Cambiar cuando lleguen fotos reales.
     precio: { monto: 100, moneda: 'PEN' },
     resumen: 'La fortaleza inca con forma de cuernos, sobre el cañón del río Apurímac.',
     lugares: ['Waqrapukara'],
@@ -233,7 +233,7 @@ const TOURS = [
     // 4D/3N que mandó es el de JTJ. Confirmado por Rodrigo (23/09 y 24/09): los US$ 290 son de la «Gran experiencia».
     slug: 'tambopata-4-dias', cat: 'selva', destacado: true,
     nombre: 'Gran experiencia en Tambopata · 4 días / 3 noches', duracion: '4 días / 3 noches', dificultad: 'Fácil', altura: 'selva baja',
-    foto: 'jtj-collpa-loros', galeria: ['jtj-bungalows', 'jtj-kayak'],
+    foto: 'jtj-collpa-loros', galeria: ['jtj-bungalows', 'jtj-kayak', 'tambopata-caiman', 'jtj-atardecer'],
     precio: { monto: 280, moneda: 'USD' }, // Rodrigo, 25/09: «Tambopata, 280 dólares, todo incluido» (no dijo los días; se asume la «Gran experiencia» de 4D/3N, la única de Tambopata con precio). Antes, 290 (lista de Florencio, 19/09; confirmado el 23/09 y el 24/09). REVISAR con Florencio: ¿290 o 280?
     resumen: 'Naturaleza, cultura, aventura y vida local: el lago Sandoval, la collpa de loros al amanecer, una familia Matsiguenka, una chacra, tirolesa y kayak.',
     lugares: ['Puerto Maldonado', 'Lago Sandoval', 'Collpa de loros La Cachuela', 'Familia Matsiguenka', 'Isla de Monos Rolín'],
@@ -251,7 +251,7 @@ const TOURS = [
   {
     slug: 'experiencia-completa-3-dias', cat: 'selva', destacado: true,
     nombre: 'Experiencia completa de Tambopata · 3 días / 2 noches', duracion: '3 días / 2 noches', dificultad: 'Fácil', altura: 'selva baja',
-    foto: 'jtj-puente-colgante', galeria: ['jtj-lago-canoa', 'jtj-capuchino'],
+    foto: 'jtj-puente-colgante', galeria: ['jtj-lago-canoa', 'jtj-capuchino', 'tambopata-guacamayo', 'jtj-perezoso'],
     precio: null,
     resumen: 'Naturaleza, cultura y aventura: una familia Matsiguenka, el lago Sandoval, caminata nocturna, tirolesa, puente colgante y kayak.',
     lugares: ['Puerto Maldonado', 'Familia Matsiguenka', 'Lago Sandoval', 'Isla de Monos Rolín'],
@@ -300,7 +300,7 @@ const TOURS = [
   {
     slug: 'collpa-chuncho-2-dias', cat: 'selva', destacado: true,
     nombre: 'Collpa Chuncho · 2 días / 1 noche', duracion: '2 días / 1 noche', dificultad: 'Fácil', altura: 'selva baja',
-    foto: 'lodge-collpa', galeria: ['lodge-habitacion', 'lodge-botes'],
+    foto: 'lodge-collpa', galeria: ['lodge-habitacion', 'lodge-botes', 'tambopata-rio', 'jtj-taricaya-mariposa'],
     precio: { monto: 250, moneda: 'USD' },
     resumen: 'Una noche en un eco-lodge al límite de la Reserva Nacional Tambopata y, al amanecer, la collpa Chuncho, donde bajan guacamayos y loros a comer arcilla.',
     lugares: ['Puerto Maldonado', 'Río Tambopata', 'Torre de observación', 'Collpa Chuncho'],

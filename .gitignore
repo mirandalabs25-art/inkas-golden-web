@@ -1,2 +1,4 @@
 # Fotos originales de Unsplash (pesan): la web usa las comprimidas de assets/img/.
 produccion/fotos-referencia/
+# Paquete generado para republicar el artifact (herramientas/preparar-artifact.js): se arma al momento de publicar.
+produccion/artifact/
