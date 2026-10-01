@@ -110,6 +110,8 @@ svg { width: 1em; height: 1em; flex: 0 0 auto; }
   width: 30px; height: 30px; border-radius: 50%; border: 2px solid var(--oro);
   background: radial-gradient(circle, var(--oro) 0 38%, transparent 40%);
 }
+.marca__iso { width: 46px; height: 46px; flex: 0 0 auto; }
+@media (max-width: 1340px) { .marca__iso { width: 40px; height: 40px; } }
 .marca__texto { display: grid; line-height: 1; }
 .marca__inkas { font: 500 25px/1 var(--display); letter-spacing: .01em; }
 .marca__golden { font: 700 10.5px/1.2 var(--sans); letter-spacing: .42em; color: var(--oro); margin-top: 3px; }

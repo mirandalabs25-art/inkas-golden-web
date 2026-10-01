@@ -134,16 +134,15 @@ const ICONO = {
   paso: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 18h4l3-6 3 3 6-9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
 };
 
-// La marca. El logo real lo genera ChatGPT (regla 8 del hub): basta soltar
-// assets/img/logo.png (horizontal, fondo transparente) y, si hay,
-// assets/img/isotipo.png (cuadrado, para la pestaña del navegador). Mientras
-// tanto va la palabra con el sol dorado.
+// La marca. assets/img/isotipo.svg (el Inca en su sello, 30/09) va junto al nombre
+// escrito en Fraunces y como ícono de la pestaña. Si se suelta un logo horizontal
+// completo (logo.svg o logo.png), reemplaza a los dos.
 const LOGO = ['logo.svg', 'logo.png'].find((f) => existe('assets/img/' + f));
 const ISOTIPO = ['isotipo.svg', 'isotipo.png'].find((f) => existe('assets/img/' + f));
 function logo() {
   const dentro = LOGO
     ? `<img class="marca__logo" src="${BASE}assets/img/${LOGO}" alt="${esc(MARCA.nombre)}" height="44">`
-    : `<span class="marca__sol" aria-hidden="true"></span>
+    : `${ISOTIPO ? `<img class="marca__iso" src="${BASE}assets/img/${ISOTIPO}" alt="" width="46" height="46">` : '<span class="marca__sol" aria-hidden="true"></span>'}
       <span class="marca__texto"><span class="marca__inkas">Inkas</span><span class="marca__golden">Golden</span></span>`;
   return `<a class="marca" href="index.html" aria-label="${esc(MARCA.nombre)}, ${L('inicio', 'home')}">
       ${dentro}
@@ -280,7 +279,7 @@ function agencia(descripcion) {
   if (ORIGEN) {
     dato.url = urlDe('index.html');
     dato.image = `${ORIGEN}/assets/img/machu-picchu.webp`;
-    if (LOGO) dato.logo = `${ORIGEN}/assets/img/${LOGO}`;
+    if (LOGO || ISOTIPO) dato.logo = `${ORIGEN}/assets/img/${LOGO || ISOTIPO}`;
   }
   return dato;
 }
@@ -1027,7 +1026,7 @@ function construir() {
 
   const enIngles = Object.keys(PAGINAS).filter((f) => f.startsWith('en/')).length;
   console.log(`✓ ${Object.keys(PAGINAS).length} páginas (${Object.keys(PAGINAS).length - enIngles} en español, ${enIngles} en inglés) · ${ES.TOURS.length} tours en ${ES.CATEGORIAS.length} categorías`);
-  if (LOGO) console.log(`  Logo: assets/img/${LOGO}`); else console.log('  Logo: todavía la palabra (soltar assets/img/logo.png cuando llegue)');
+  console.log(LOGO ? `  Logo: assets/img/${LOGO}` : ISOTIPO ? `  Logo: assets/img/${ISOTIPO} + el nombre en Fraunces` : '  Logo: todavía la palabra con el sol dorado');
   console.log(ORIGEN ? `  SEO: ${ORIGEN} (canonical, hreflang, og:image y sitemap.xml)` : '  SEO: sin dominio → canonical, hreflang, og:image y sitemap.xml apagados (cargar MARCA.dominio en sitio.js)');
   if (sinTraducir.size) console.log(`  ⚠ Sin traducir al inglés (sale en español): ${[...sinTraducir].join(', ')}`);
   console.log(`  ${faltas.size} datos distintos por confirmar (REVISAR):`);
