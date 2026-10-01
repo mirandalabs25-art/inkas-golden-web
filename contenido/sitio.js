@@ -154,10 +154,12 @@ const TOURS = [
     // detalle del operador — nada de esto lo dio Florencio. REVISAR con él.
     slug: 'cuatrimotos-valle-sagrado', cat: 'cusco',
     nombre: 'Cuatrimotos por el Valle Sagrado', duracion: '[Duración por confirmar]', dificultad: '[Dificultad por confirmar]', altura: 'hasta 3,760 m',
-    foto: 'cuatrimotos-valle-sagrado', galeria: [], // Foto de referencia (Unsplash): cuatrimoto en montaña, no es del Valle Sagrado. Cambiar cuando lleguen fotos reales.
+    // Fotos de Maras y Moray que mandó Rodrigo (30/09). Se dejó fuera una tercera con la marca de agua de otra agencia.
+    // REVISAR: no se sabe de dónde salieron (baja resolución); reemplazar por fotos propias o del operador.
+    foto: 'cuatrimotos-maras-moray', galeria: ['cuatrimotos-maras-moray-2'],
     precio: null,
-    resumen: 'El Valle Sagrado en cuatrimoto, una alternativa al tour tradicional en bus.',
-    lugares: ['[Lugares por confirmar]'],
+    resumen: 'Maras y Moray en cuatrimoto, por los caminos del Valle Sagrado: una alternativa al tour tradicional en bus.',
+    lugares: ['Maras', 'Moray'], // Rodrigo, 30/09: «fotos de Maras Moray cuatrimotos».
     fuente: 'referencia',
     itinerario: null, incluye: null, noIncluye: null,
   },
@@ -324,7 +326,9 @@ const TOURS = [
   {
     slug: 'collpa-chuncho-2-dias', cat: 'selva', destacado: true,
     nombre: 'Collpa Chuncho · 2 días / 1 noche', duracion: '2 días / 1 noche', dificultad: 'Fácil', altura: 'selva baja',
-    foto: 'lodge-collpa', galeria: ['lodge-habitacion', 'lodge-botes', 'tambopata-rio', 'jtj-taricaya-mariposa'],
+    // Solo fotos del albergue de este programa (álbum del 23/09; Rodrigo las reenvió el 30/09 para este tour).
+    // El comedor va recortado al buffet: la foto original muestra turistas de frente.
+    foto: 'lodge-collpa', galeria: ['lodge-guacamayos', 'lodge-aereo', 'lodge-capibaras', 'lodge-botes', 'lodge-habitacion', 'lodge-comedor'],
     precio: { monto: 250, moneda: 'USD' },
     resumen: 'Una noche en un eco-lodge al límite de la Reserva Nacional Tambopata y, al amanecer, la collpa Chuncho, donde bajan guacamayos y loros a comer arcilla.',
     lugares: ['Puerto Maldonado', 'Río Tambopata', 'Torre de observación', 'Collpa Chuncho'],

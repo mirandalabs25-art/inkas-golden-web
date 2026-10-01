@@ -94,8 +94,8 @@ const TOURS = {
   },
   'cuatrimotos-valle-sagrado': {
     nombre: 'ATV Ride through the Sacred Valley', duracion: '[Duration to be confirmed]', dificultad: '[Difficulty to be confirmed]', altura: 'up to 3,760 m',
-    resumen: 'The Sacred Valley by ATV, an alternative to the traditional bus tour.',
-    lugares: ['[Places to be confirmed]'],
+    resumen: 'Maras and Moray by ATV, along the trails of the Sacred Valley: an alternative to the traditional bus tour.',
+    lugares: ['Maras', 'Moray'],
   },
   'montana-7-colores': {
     nombre: 'Rainbow Mountain', duracion: '1 day', dificultad: 'Challenging', altura: 'over 5,000 m',

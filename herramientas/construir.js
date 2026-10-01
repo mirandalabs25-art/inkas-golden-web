@@ -483,10 +483,11 @@ function paginaTourHtml(t) {
   const msg = L(`Hola, quiero reservar el tour ${t.nombre}${duracionTexto}`, `Hello, I would like to book the tour ${t.nombre}${duracionTexto}`);
   const delPrograma = t.fuente === 'programa' ? ` <span class="etiqueta etiqueta--ok">${L('Programa completo', 'Full program')}</span>` : '';
 
+  const chicas = t.galeria.slice(0, 6);
   const galeria = t.foto
-    ? `<div class="galeria">
+    ? `<div class="galeria galeria--n${chicas.length}">
     <figure class="galeria__grande"><img src="${img(t.foto)}" alt="${esc(t.nombre)}" width="1600" height="1067"></figure>
-${t.galeria.map((g) => `    <figure><img src="${mini(g)}" alt="" width="720" height="480" loading="lazy"></figure>`).join('\n')}
+${chicas.map((g) => `    <figure><img src="${mini(g)}" alt="" width="720" height="480" loading="lazy"></figure>`).join('\n')}
   </div>`
     : `<div class="galeria galeria--sin">${fotoTarjeta(t)}</div>`;
 
