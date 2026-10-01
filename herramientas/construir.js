@@ -86,6 +86,8 @@ function wa(mensaje) {
 const img = (nombre) => `${BASE}assets/img/${nombre}.webp`;
 const mini = (nombre) => `${BASE}assets/img/mini/${nombre}.webp`;
 const catDe = (clave) => CATEGORIAS.find((c) => c.clave === clave);
+// Con un solo tour, la tarjeta va ancha (foto al costado) para no dejar la fila vacía.
+const claseTarjetas = (lista, base) => base + (lista.length === 1 ? ' tarjetas--una' : '');
 const toursDe = (clave) => TOURS.filter((t) => t.cat === clave);
 const paginaTour = (t) => `tour-${t.slug}.html`;
 const existe = (rel) => fs.existsSync(path.join(RAIZ, rel));
@@ -253,6 +255,61 @@ function pie() {
 <a class="flotante" href="${wa(L('Hola, quiero información sobre sus tours', 'Hello, I would like information about your tours'))}" target="_blank" rel="noopener" aria-label="${L('Escríbenos por WhatsApp', 'Message us on WhatsApp')}">${ICONO.wa}<span>${L('¿Consultas? Escríbenos', 'Questions? Message us')}</span></a>`;
 }
 
+// --- SEO ------------------------------------------------------------------------
+// canonical, og:url, og:image, hreflang, migas y sitemap piden la dirección completa:
+// sin dominio confirmado no se escriben (sería inventarla). Se encienden solos
+// al cargar MARCA.dominio en sitio.js.
+const ORIGEN = ES.MARCA.dominio ? (/^https?:/.test(ES.MARCA.dominio) ? ES.MARCA.dominio : 'https://' + ES.MARCA.dominio).replace(/\/$/, '') : null;
+const urlDe = (archivo, lang = LANG) => `${ORIGEN}/${lang === 'en' ? 'en/' : ''}${archivo === 'index.html' ? '' : archivo}`;
+const jsonLd = (dato) => `\n<script type="application/ld+json">${JSON.stringify(dato).replace(/</g, '\\u003c')}</script>`;
+
+function agencia(descripcion) {
+  const [calle, ...resto] = (CONTACTO.direccion || '').split(', ');
+  const dato = {
+    '@context': 'https://schema.org', '@type': 'TravelAgency',
+    name: MARCA.nombre, description: descripcion,
+    telephone: CONTACTO.whatsapp ? '+' + CONTACTO.whatsapp : undefined,
+    email: CONTACTO.correo || undefined,
+    address: calle ? { '@type': 'PostalAddress', streetAddress: calle, addressLocality: resto.join(', ') || 'Cusco', addressRegion: 'Cusco', addressCountry: 'PE' } : undefined,
+    areaServed: ['Cusco', 'Machu Picchu', 'Valle Sagrado', 'Tambopata', 'Manu', 'Puno'],
+    knowsLanguage: ['es', 'en'],
+    paymentAccepted: (S.PAGOS || []).join(', '),
+    currenciesAccepted: 'PEN, USD',
+    // openingHours: REVISAR. El horario es de 8 a 8, pero no está confirmado qué días.
+  };
+  if (ORIGEN) {
+    dato.url = urlDe('index.html');
+    dato.image = `${ORIGEN}/assets/img/machu-picchu.webp`;
+    if (LOGO) dato.logo = `${ORIGEN}/assets/img/${LOGO}`;
+  }
+  return dato;
+}
+
+function seo(o) {
+  let h = `\n<meta property="og:site_name" content="${esc(MARCA.nombre)}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(o.titulo)}">
+<meta name="twitter:description" content="${esc(o.descripcion)}">`;
+  if (ORIGEN) {
+    const foto = `${ORIGEN}/assets/img/${o.foto || 'machu-picchu'}.webp`;
+    h += `\n<link rel="canonical" href="${urlDe(o.archivo)}">
+<link rel="alternate" hreflang="es" href="${urlDe(o.archivo, 'es')}">
+<link rel="alternate" hreflang="en" href="${urlDe(o.archivo, 'en')}">
+<link rel="alternate" hreflang="x-default" href="${urlDe(o.archivo, 'es')}">
+<meta property="og:url" content="${urlDe(o.archivo)}">
+<meta property="og:image" content="${foto}">
+<meta name="twitter:image" content="${foto}">`;
+    if (o.migas) {
+      h += jsonLd({
+        '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+        itemListElement: [[L('Inicio', 'Home'), 'index.html'], ...o.migas].map(([nombre, archivo], i) => ({ '@type': 'ListItem', position: i + 1, name: nombre, item: urlDe(archivo) })),
+      });
+    }
+  }
+  if (o.clase === 'inicio') h += jsonLd(agencia(o.descripcion));
+  return h;
+}
+
 function pagina(o) {
   const vCss = version('assets/css/style.css');
   const vJs = version('assets/js/main.js');
@@ -269,7 +326,7 @@ function pagina(o) {
 <meta property="og:type" content="website">
 <meta property="og:title" content="${esc(o.titulo)}">
 <meta property="og:description" content="${esc(o.descripcion)}">
-<meta property="og:locale" content="${L('es_PE', 'en_US')}">${icono}
+<meta property="og:locale" content="${L('es_PE', 'en_US')}">${seo(o)}${icono}
 <!-- Generado por herramientas/construir.js: no editar a mano, se sobrescribe. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -348,12 +405,15 @@ const migas = (partes) => `<nav class="migas" aria-label="${L('Estás en', 'You 
 function paginaInicio() {
   const opciones = CATEGORIAS.map((c) => `<option>${esc(c.titulo)}</option>`).join('');
   let n = 0;
-  const filas = CATEGORIAS.map((c) => `<section class="seccion fila" id="${c.clave}">
+  const filas = CATEGORIAS.map((c) => {
+    const lista = toursDe(c.clave).slice().sort((a, b) => (b.destacado ? 1 : 0) - (a.destacado ? 1 : 0)).slice(0, 4);
+    return `<section class="seccion fila" id="${c.clave}">
   ${cab(++n, c.titulo, c.bajada, [c.archivo, L('Ver todos →', 'See all →')])}
-  <ul class="tarjetas tarjetas--fila" role="list">
-    ${toursDe(c.clave).slice().sort((a, b) => (b.destacado ? 1 : 0) - (a.destacado ? 1 : 0)).slice(0, 4).map(tarjeta).join('\n    ')}
+  <ul class="${claseTarjetas(lista, 'tarjetas tarjetas--fila')}" role="list">
+    ${lista.map(tarjeta).join('\n    ')}
   </ul>
-</section>`).join('\n\n');
+</section>`;
+  }).join('\n\n');
 
   const giro = `<section class="giro" id="destinos" style="--n:${S.DESTINOS.length}" aria-label="${L('Destinos', 'Destinations')}">
   <div class="giro__fijo">
@@ -454,7 +514,7 @@ function paginaCategoria(c) {
 
 <section class="seccion">
   <p class="intro">${esc(c.intro)}</p>
-  <ul class="tarjetas" role="list">
+  <ul class="${claseTarjetas(toursDe(c.clave), 'tarjetas')}" role="list">
     ${toursDe(c.clave).map(tarjeta).join('\n    ')}
   </ul>
 </section>
@@ -470,7 +530,7 @@ ${bandaFinal(L('¿No encuentras el tour que buscas? Te lo armamos.', 'Can\'t fin
   guardar(c.archivo, {
     titulo: `${c.titulo} — ${MARCA.nombre}`,
     descripcion: L(`${c.titulo} con ${MARCA.nombre}, agencia de viajes en Cusco. ${c.bajada}`, `${c.titulo} with ${MARCA.nombre}, a travel agency in Cusco. ${c.bajada}`),
-    activa: c.archivo, cuerpo,
+    activa: c.archivo, cuerpo, foto: c.foto, migas: [[c.titulo, c.archivo]],
   });
 }
 
@@ -479,7 +539,7 @@ function paginaTourHtml(t) {
   const c = catDe(t.cat);
   const llevar = t.llevar || S.LLEVAR[t.cat];
   const relacionados = toursDe(t.cat).filter((x) => x !== t).slice(0, 3);
-  const duracionTexto = /\[/.test(t.duracion) ? '' : ` (${t.duracion})`;
+  const duracionTexto = /\[/.test(t.duracion) || t.nombre.includes(t.duracion) ? '' : ` (${t.duracion})`;
   const msg = L(`Hola, quiero reservar el tour ${t.nombre}${duracionTexto}`, `Hello, I would like to book the tour ${t.nombre}${duracionTexto}`);
   const delPrograma = t.fuente === 'programa' ? ` <span class="etiqueta etiqueta--ok">${L('Programa completo', 'Full program')}</span>` : '';
 
@@ -587,7 +647,7 @@ ${t.alojamiento ? `
 
 ${relacionados.length ? `<section class="seccion seccion--piedra">
   ${cab(1, L('Tours relacionados', 'Related tours'), null, [c.archivo, L('Ver todos →', 'See all →')])}
-  <ul class="tarjetas" role="list">
+  <ul class="${claseTarjetas(relacionados, 'tarjetas')}" role="list">
     ${relacionados.map(tarjeta).join('\n    ')}
   </ul>
 </section>` : ''}
@@ -596,7 +656,8 @@ ${relacionados.length ? `<section class="seccion seccion--piedra">
   guardar(paginaTour(t), {
     titulo: `${t.nombre} — ${MARCA.nombre}`,
     descripcion: L(`${t.nombre}${duracionTexto} con ${MARCA.nombre}. ${t.resumen}`, `${t.nombre}${duracionTexto} with ${MARCA.nombre}. ${t.resumen}`),
-    activa: c.archivo, cuerpo, clase: 'pagina pagina--tour',
+    activa: c.archivo, cuerpo, clase: 'pagina pagina--tour', foto: t.foto,
+    migas: [[c.titulo, c.archivo], [t.nombre, paginaTour(t)]],
   });
 }
 
@@ -956,9 +1017,18 @@ function construir() {
   }
   fs.writeFileSync(registro, JSON.stringify(Object.keys(PAGINAS), null, 1));
 
+  // robots.txt siempre; el sitemap solo con dominio (pide direcciones completas).
+  const sitemap = path.join(RAIZ, 'sitemap.xml');
+  fs.writeFileSync(path.join(RAIZ, 'robots.txt'), `User-agent: *\nAllow: /\n${ORIGEN ? `\nSitemap: ${ORIGEN}/sitemap.xml\n` : ''}`);
+  if (ORIGEN) {
+    const urls = Object.keys(PAGINAS).map((f) => `  <url><loc>${ORIGEN}/${f.replace(/(^|\/)index\.html$/, '$1')}</loc></url>`);
+    fs.writeFileSync(sitemap, `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`);
+  } else if (fs.existsSync(sitemap)) fs.unlinkSync(sitemap);
+
   const enIngles = Object.keys(PAGINAS).filter((f) => f.startsWith('en/')).length;
   console.log(`✓ ${Object.keys(PAGINAS).length} páginas (${Object.keys(PAGINAS).length - enIngles} en español, ${enIngles} en inglés) · ${ES.TOURS.length} tours en ${ES.CATEGORIAS.length} categorías`);
   if (LOGO) console.log(`  Logo: assets/img/${LOGO}`); else console.log('  Logo: todavía la palabra (soltar assets/img/logo.png cuando llegue)');
+  console.log(ORIGEN ? `  SEO: ${ORIGEN} (canonical, hreflang, og:image y sitemap.xml)` : '  SEO: sin dominio → canonical, hreflang, og:image y sitemap.xml apagados (cargar MARCA.dominio en sitio.js)');
   if (sinTraducir.size) console.log(`  ⚠ Sin traducir al inglés (sale en español): ${[...sinTraducir].join(', ')}`);
   console.log(`  ${faltas.size} datos distintos por confirmar (REVISAR):`);
   [...faltas].forEach((f) => console.log('    · ' + f));

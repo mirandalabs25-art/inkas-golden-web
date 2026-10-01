@@ -55,12 +55,16 @@ const ev = async (expr) => ((await cmd('Runtime.evaluate', { expression: expr, r
     await ev(`(async()=>{for(let y=0;y<document.documentElement.scrollHeight;y+=600){scrollTo(0,y);await new Promise(r=>setTimeout(r,60));}scrollTo(0,0);})()`);
     await espera(600);
     const ancho = await ev('document.documentElement.scrollWidth');
-    const alto = completa ? Math.min(await ev('document.documentElement.scrollHeight'), 14000) : m.height;
+    // :y1800 = una pantalla a esa altura (con la página desplazada de verdad, para que corran los efectos de scroll).
+    const y = completa && completa.startsWith('y') ? Number(completa.slice(1)) : 0;
+    if (y) { await ev(`scrollTo(0, ${y})`); await espera(900); }
+    const entera = completa === 'completa';
+    const alto = entera ? Math.min(await ev('document.documentElement.scrollHeight'), 14000) : m.height;
     const shot = await cmd('Page.captureScreenshot', {
-      format: 'jpeg', quality: 70, captureBeyondViewport: !!completa,
-      clip: { x: 0, y: 0, width: m.width, height: alto, scale: m.mobile ? 0.5 : 0.7 },
+      format: 'jpeg', quality: 70, captureBeyondViewport: entera,
+      clip: { x: 0, y: entera ? 0 : await ev('scrollY'), width: m.width, height: alto, scale: m.mobile ? 0.5 : 0.7 },
     }, 60000);
-    const archivo = path.join(SALIDA, `${pagina.replace(/[\\/]/g, '_').replace('.html', '')}-${modo}.jpg`);
+    const archivo = path.join(SALIDA, `${pagina.replace(/[\\/]/g, '_').replace('.html', '')}-${modo}${y ? '-y' + y : ''}.jpg`);
     fs.writeFileSync(archivo, Buffer.from(shot.data, 'base64'));
     console.log(ancho > m.width ? `OJO desborde horizontal (${ancho} px)` : 'ok', archivo);
   }

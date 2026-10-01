@@ -63,7 +63,7 @@
   var botonMenu = document.querySelector('.nav__menu');
   var textoMenu = document.querySelector('.nav__menu-texto');
   var botones = Array.prototype.slice.call(document.querySelectorAll('.nav__boton'));
-  var movil = window.matchMedia('(max-width: 1140px)');
+  var movil = window.matchMedia('(max-width: 1340px)'); // mismo corte que el CSS del menú
 
   function algunoAbierto() {
     return botones.some(function (b) { return b.getAttribute('aria-expanded') === 'true'; });
