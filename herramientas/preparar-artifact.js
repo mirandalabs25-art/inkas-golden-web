@@ -23,7 +23,7 @@ const files = {};
 const sumar = (f) => { files[f] = path.join(Y, f).split(path.sep).join('/'); };
 generadas.forEach(sumar);
 ['assets/css/style.css', 'assets/js/main.js', 'assets/js/datos.js'].forEach(sumar);
-fs.readdirSync(path.join(Y, 'assets/img')).filter((m) => m.endsWith('.webp')).forEach((m) => sumar('assets/img/' + m));
+fs.readdirSync(path.join(Y, 'assets/img')).filter((m) => /\.(webp|svg)$/.test(m)).forEach((m) => sumar('assets/img/' + m));
 fs.readdirSync(path.join(Y, 'assets/img/mini')).forEach((m) => sumar('assets/img/mini/' + m));
 fs.writeFileSync(path.join(SALIDA, 'inkas-files.json'), JSON.stringify(files, null, 1));
 console.log(Object.keys(files).length, 'archivos;', fs.statSync(path.join(SALIDA, 'inkas-golden.html')).size, 'bytes la portada ->', SALIDA);
